@@ -26,6 +26,12 @@ export function FailureDiagnosisPanel({
           <p className="mt-1 text-rose-950">{diagnosis.failedTestCaseId}</p>
         </div>
         <div>
+          <p className="text-sm font-semibold text-rose-900">
+            Failed workflow step
+          </p>
+          <p className="mt-1 text-rose-950">{diagnosis.failedWorkflowStep}</p>
+        </div>
+        <div>
           <p className="text-sm font-semibold text-rose-900">Root cause</p>
           <p className="mt-1 leading-7 text-rose-950">
             {diagnosis.rootCause}
@@ -46,6 +52,18 @@ export function FailureDiagnosisPanel({
           <p className="mt-1 leading-7 text-rose-950">
             {diagnosis.reproductionSummary}
           </p>
+        </div>
+        <div>
+          <p className="text-sm font-semibold text-rose-900">
+            Contributing signals
+          </p>
+          <ul className="mt-2 grid gap-2">
+            {diagnosis.contributingSignals.map((signal) => (
+              <li className="rounded-md bg-white/70 p-3 text-sm" key={signal}>
+                {signal}
+              </li>
+            ))}
+          </ul>
         </div>
         <div>
           <p className="text-sm font-semibold text-rose-900">

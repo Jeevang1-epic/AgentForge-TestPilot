@@ -4,6 +4,7 @@ import { EvidenceReportView } from "@/components/dashboard/EvidenceReportView";
 import { ExecutionResults } from "@/components/dashboard/ExecutionResults";
 import { FailureDiagnosisPanel } from "@/components/dashboard/FailureDiagnosisPanel";
 import { HumanReviewPanel } from "@/components/dashboard/HumanReviewPanel";
+import { RequirementAnalysisPanel } from "@/components/dashboard/RequirementAnalysisPanel";
 import { RiskScoreCard } from "@/components/dashboard/RiskScoreCard";
 import { TestPlanTable } from "@/components/dashboard/TestPlanTable";
 import { runReleaseCheckPipeline } from "@/lib/orchestrator/releaseCheckOrchestrator";
@@ -13,6 +14,9 @@ export default function ReleaseCheckPage() {
   const failedResult = releaseCheck.executionResults.find(
     (result) => result.status === "FAILED",
   );
+  const passedCount = releaseCheck.executionResults.filter(
+    (result) => result.status === "PASSED",
+  ).length;
 
   return (
     <main className="min-h-screen px-4 py-6 text-zinc-950 md:px-8">
@@ -29,8 +33,13 @@ export default function ReleaseCheckPage() {
               Invoice approval release command center
             </h1>
             <p className="mt-4 max-w-3xl text-base leading-7 text-zinc-700">
-              Local deterministic release governance for a threshold-routing
-              change in the invoice approval automation.
+              {releaseCheck.metadata.runName} for{" "}
+              {releaseCheck.metadata.scenario}.
+            </p>
+            <p className="mt-2 text-sm font-medium text-zinc-500">
+              {releaseCheck.metadata.releaseCandidateId} -{" "}
+              {releaseCheck.metadata.pipelineVersion} -{" "}
+              {releaseCheck.metadata.dataSource}
             </p>
           </div>
           <div className="rounded-lg border border-rose-200 bg-rose-50 px-5 py-4 text-rose-900">
@@ -43,7 +52,7 @@ export default function ReleaseCheckPage() {
           </div>
         </header>
 
-        <section className="mt-6 grid gap-4 md:grid-cols-3">
+        <section className="mt-6 grid gap-4 md:grid-cols-4">
           <div className="rounded-lg border border-zinc-200 bg-white p-5 shadow-sm">
             <p className="text-sm font-semibold text-zinc-500">Automation</p>
             <p className="mt-2 text-xl font-semibold">
@@ -58,6 +67,15 @@ export default function ReleaseCheckPage() {
           </div>
           <div className="rounded-lg border border-zinc-200 bg-white p-5 shadow-sm">
             <p className="text-sm font-semibold text-zinc-500">
+              Tests reviewed
+            </p>
+            <p className="mt-2 text-xl font-semibold">
+              {passedCount} passed / {releaseCheck.executionResults.length}{" "}
+              total
+            </p>
+          </div>
+          <div className="rounded-lg border border-zinc-200 bg-white p-5 shadow-sm">
+            <p className="text-sm font-semibold text-zinc-500">
               Critical failed test
             </p>
             <p className="mt-2 text-xl font-semibold">
@@ -65,6 +83,43 @@ export default function ReleaseCheckPage() {
             </p>
           </div>
         </section>
+
+        {failedResult ? (
+          <section className="mt-6 rounded-lg border border-rose-200 bg-rose-50 p-6 shadow-sm">
+            <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+              <div>
+                <p className="text-sm font-semibold uppercase tracking-[0.16em] text-rose-700">
+                  Failed test details
+                </p>
+                <h2 className="mt-3 text-2xl font-semibold text-rose-950">
+                  {failedResult.testCaseId}: {failedResult.testCaseTitle}
+                </h2>
+                <p className="mt-3 leading-7 text-rose-950">
+                  {failedResult.errorSummary}
+                </p>
+              </div>
+              <span className="w-fit rounded-full bg-rose-700 px-3 py-1 text-xs font-semibold text-white">
+                Critical control failure
+              </span>
+            </div>
+            <div className="mt-5 grid gap-3 md:grid-cols-2">
+              <div className="rounded-md bg-white/70 p-4">
+                <p className="text-sm font-semibold text-rose-900">Evidence</p>
+                <p className="mt-2 leading-6 text-rose-950">
+                  {failedResult.evidence}
+                </p>
+              </div>
+              <div className="rounded-md bg-white/70 p-4">
+                <p className="text-sm font-semibold text-rose-900">
+                  Actual result
+                </p>
+                <p className="mt-2 leading-6 text-rose-950">
+                  {failedResult.actualResult}
+                </p>
+              </div>
+            </div>
+          </section>
+        ) : null}
 
         <section className="mt-6 rounded-lg border border-zinc-200 bg-white p-6 shadow-sm">
           <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
@@ -120,39 +175,9 @@ export default function ReleaseCheckPage() {
         </section>
 
         <section className="mt-6 grid gap-6 lg:grid-cols-[0.85fr_1.15fr]">
-          <div className="rounded-lg border border-zinc-200 bg-white p-6 shadow-sm">
-            <p className="text-sm font-semibold uppercase tracking-[0.16em] text-emerald-700">
-              Extracted requirements
-            </p>
-            <h2 className="mt-3 text-2xl font-semibold">
-              Requirement analysis
-            </h2>
-            <p className="mt-3 leading-7 text-zinc-700">
-              {releaseCheck.requirementAnalysis.summary}
-            </p>
-            <div className="mt-5 grid gap-3">
-              {releaseCheck.requirementAnalysis.extractedRequirements.map(
-                (requirement) => (
-                  <div
-                    className="rounded-md border border-zinc-200 bg-zinc-50 p-4"
-                    key={requirement.id}
-                  >
-                    <div className="flex items-center justify-between gap-3">
-                      <p className="font-semibold text-zinc-950">
-                        {requirement.id}
-                      </p>
-                      <span className="rounded-full border border-zinc-300 px-2.5 py-1 text-xs font-semibold text-zinc-600">
-                        {requirement.priority}
-                      </span>
-                    </div>
-                    <p className="mt-2 text-sm leading-6 text-zinc-700">
-                      {requirement.statement}
-                    </p>
-                  </div>
-                ),
-              )}
-            </div>
-          </div>
+          <RequirementAnalysisPanel
+            analysis={releaseCheck.requirementAnalysis}
+          />
           <TestPlanTable testCases={releaseCheck.testCases} />
         </section>
 

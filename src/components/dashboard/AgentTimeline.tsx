@@ -26,13 +26,16 @@ export function AgentTimeline({ timeline }: AgentTimelineProps) {
       <div className="mt-5 grid gap-3">
         {timeline.map((step) => (
           <div
-            className="grid gap-3 rounded-md border border-zinc-200 bg-zinc-50 p-4 sm:grid-cols-[0.7fr_1fr]"
+            className="grid gap-3 rounded-md border border-zinc-200 bg-zinc-50 p-4 sm:grid-cols-[auto_0.8fr_1fr]"
             key={step.id}
           >
+            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-zinc-950 text-sm font-semibold text-white">
+              {step.sequence}
+            </div>
             <div>
               <p className="font-semibold text-zinc-950">{step.agentName}</p>
               <p className="mt-1 text-xs font-medium text-zinc-500">
-                {step.startedAt} to {step.completedAt}
+                {step.durationSeconds}s execution window
               </p>
             </div>
             <div>
@@ -45,6 +48,9 @@ export function AgentTimeline({ timeline }: AgentTimelineProps) {
               </span>
               <p className="mt-2 text-sm leading-6 text-zinc-700">
                 {step.outcome}
+              </p>
+              <p className="mt-2 text-xs font-medium text-zinc-500">
+                {step.startedAt} to {step.completedAt}
               </p>
             </div>
           </div>

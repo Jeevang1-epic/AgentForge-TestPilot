@@ -12,6 +12,26 @@ export function HumanReviewPanel({ decision }: HumanReviewPanelProps) {
       </p>
       <h2 className="mt-3 text-2xl font-semibold">{decision.decision}</h2>
       <p className="mt-3 leading-7 text-zinc-700">{decision.reason}</p>
+      <div className="mt-5 grid gap-3">
+        <div className="rounded-md bg-zinc-50 p-4">
+          <p className="text-sm font-semibold text-zinc-500">Review queue</p>
+          <p className="mt-2 font-medium text-zinc-950">
+            {decision.reviewQueue}
+          </p>
+        </div>
+        <div className="rounded-md border border-rose-200 bg-rose-50 p-4">
+          <p className="text-sm font-semibold text-rose-700">Next action</p>
+          <p className="mt-2 leading-6 text-rose-950">
+            {decision.nextAction}
+          </p>
+        </div>
+        <div className="rounded-md bg-zinc-50 p-4">
+          <p className="text-sm font-semibold text-zinc-500">Risk accepted</p>
+          <p className="mt-2 font-medium text-zinc-950">
+            {decision.riskAccepted ? "Yes" : "No"}
+          </p>
+        </div>
+      </div>
       <div className="mt-5">
         <p className="text-sm font-semibold text-zinc-500">
           Required approvers

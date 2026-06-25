@@ -29,6 +29,9 @@ export function RiskScoreCard({ assessment }: RiskScoreCardProps) {
           style={{ width: `${assessment.score}%` }}
         />
       </div>
+      <p className="mt-4 text-sm leading-6 text-zinc-300">
+        {assessment.calculationSummary}
+      </p>
       <div className="mt-6 grid gap-3 sm:grid-cols-2">
         {assessment.factors.map((factor) => (
           <div className="rounded-md bg-white/8 p-4" key={factor.id}>
@@ -41,8 +44,22 @@ export function RiskScoreCard({ assessment }: RiskScoreCardProps) {
             <p className="mt-2 text-sm leading-6 text-zinc-300">
               {factor.description}
             </p>
+            <p className="mt-3 text-xs font-semibold uppercase tracking-[0.12em] text-emerald-200">
+              {factor.impactArea}
+            </p>
+            <p className="mt-2 text-sm leading-6 text-zinc-300">
+              {factor.mitigation}
+            </p>
           </div>
         ))}
+      </div>
+      <div className="mt-5 rounded-md border border-white/10 bg-white/5 p-4">
+        <p className="text-sm font-semibold text-white">Recommended coverage</p>
+        <ul className="mt-3 grid gap-2 text-sm leading-6 text-zinc-300 sm:grid-cols-2">
+          {assessment.recommendedCoverage.map((coverage) => (
+            <li key={coverage}>{coverage}</li>
+          ))}
+        </ul>
       </div>
       <p className="mt-5 rounded-md border border-emerald-400/30 bg-emerald-400/10 p-4 text-sm leading-6 text-emerald-100">
         {assessment.releaseRecommendation}
