@@ -6,7 +6,7 @@ AgentForge TestPilot is a release-governance dashboard for enterprise automation
 
 ## Demo Scenario
 
-The Milestone 1 scenario is an invoice approval automation release check. A threshold-routing change is proposed for invoice approvals. The release check finds that a high-value invoice can bypass manager approval after the change, creating a critical governance failure.
+The current scenario is an invoice approval automation release check. A threshold-routing change is proposed for invoice approvals. The release check finds that a high-value invoice can bypass manager approval after the change, creating a critical governance failure.
 
 ## Locked Scope
 
@@ -26,10 +26,13 @@ The Milestone 1 scenario is an invoice approval automation release check. A thre
 - External APIs.
 - Generic QA use cases outside invoice approval release governance.
 
-## Milestone 1 Success Criteria
+## Milestone 2 Success Criteria
 
 - The `/` page explains AgentForge TestPilot clearly.
 - The `/release-check` page shows the full release check flow.
+- The release check includes metadata, requirement analysis, risk assessment, generated tests, execution results, failure diagnosis, release gate decision, and evidence report.
+- Requirement analysis includes business rules, acceptance criteria, affected workflow steps, assumptions, and missing information.
+- Execution results show four passed tests and one critical failed test.
 - The critical failed test is visible and tied to business impact.
 - The release decision is blocked or requires human review.
 - The evidence report preview is ready for a hackathon demo.

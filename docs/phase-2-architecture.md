@@ -11,13 +11,13 @@ AgentForge TestPilot is a Next.js App Router application using TypeScript and Ta
 
 The release check pipeline is deterministic and runs locally:
 
-1. `requirementAnalyst` extracts requirements and control objectives.
-2. `riskMapper` produces a risk assessment from fixed weighted factors.
-3. `testPlanner` creates invoice approval test cases.
-4. `executionAnalyst` returns deterministic test execution results.
-5. `failureInvestigator` diagnoses the critical failed test.
-6. `releaseGate` returns the blocked release decision.
-7. `generateEvidenceReport` builds the evidence report preview.
+1. `requirementAnalyst` extracts business rules, acceptance criteria, affected workflow steps, assumptions, missing information, requirements, and control objectives.
+2. `riskMapper` calculates a weighted risk score, risk level, risk factors, mitigations, and recommended release-gate coverage.
+3. `testPlanner` creates five realistic invoice approval test cases across fast-path, manager approval, exception handling, and audit evidence.
+4. `executionAnalyst` returns deterministic execution results with four passed tests and one critical failed test.
+5. `failureInvestigator` diagnoses why the high-value invoice bypassed manager approval.
+6. `releaseGate` returns the blocked release decision with review queue, next action, and release conditions.
+7. `generateEvidenceReport` builds the evidence report preview with metrics, findings, and audit trail.
 
 ## Data Boundaries
 
@@ -28,6 +28,7 @@ All demo data lives in `src/lib/data/demoReleaseCheck.ts`. No server-side persis
 Strict TypeScript types define the release check surface:
 
 - `ReleaseCheck`
+- `ReleaseCheckMetadata`
 - `RequirementAnalysis`
 - `RiskAssessment`
 - `TestCase`
@@ -35,6 +36,10 @@ Strict TypeScript types define the release check surface:
 - `FailureDiagnosis`
 - `HumanReviewDecision`
 - `EvidenceReport`
+
+## Dashboard Surface
+
+The `/release-check` dashboard presents run metadata, change request context, agent timeline, requirement analysis, risk score, test coverage table, execution results, failed test details, failure diagnosis, release decision, human review routing, and evidence report preview.
 
 ## Future Integration Boundary
 

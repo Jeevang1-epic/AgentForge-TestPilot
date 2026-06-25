@@ -17,6 +17,10 @@
 - Local deterministic demo data is implemented.
 - Pure TypeScript agent functions are implemented.
 - Orchestrator runs the full local pipeline.
+- Release-check metadata is included in the pipeline result.
+- Requirement analysis includes business rules, acceptance criteria, affected workflow steps, assumptions, and missing information.
+- Risk assessment includes weighted factors, score, level, mitigations, and recommended coverage.
+- Execution results show four passed tests and one critical failed test.
 
 ## Demo Requirements
 
@@ -25,7 +29,9 @@
 - Extracted requirements are visible.
 - Risk score is visible.
 - Generated test cases are visible.
+- Test coverage table is visible.
 - Execution results are visible.
+- Failed test details are visible.
 - One critical failed test is visible.
 - Failure diagnosis is visible.
 - Release decision is visible.
@@ -41,5 +47,5 @@
 
 ## Git
 
-- Changes are committed with message `added milestone 1 release check dashboard`.
-- Commit is pushed to `origin main`.
+- Changes are split into small logical commits.
+- Each commit is pushed to `origin main`.

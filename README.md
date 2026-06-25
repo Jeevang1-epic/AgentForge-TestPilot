@@ -1,6 +1,6 @@
 # AgentForge TestPilot
 
-AgentForge TestPilot is an agentic QA and release-governance dashboard for enterprise automations. The Milestone 1 demo focuses on an invoice approval automation release check where a routing change is analyzed, risk is scored, tests are generated, execution results are reviewed, a critical failure is diagnosed, and a release gate decision is produced with an evidence report.
+AgentForge TestPilot is an agentic QA and release-governance dashboard for enterprise automations. The current demo focuses on an invoice approval automation release check where a routing change is analyzed, risk is scored, test coverage is planned, execution results are reviewed, a critical failure is diagnosed, and a release gate decision is produced with an evidence report.
 
 ## Hackathon Track
 
@@ -9,10 +9,10 @@ UiPath AgentHack Track 3: UiPath Test Cloud.
 ## MVP Flow
 
 1. Review an invoice approval automation change request.
-2. Extract deterministic requirements and control objectives.
-3. Score business and compliance risk.
-4. Generate focused regression and release-gate test cases.
-5. Review deterministic execution results with one critical failed test.
+2. Extract deterministic business rules, acceptance criteria, workflow steps, assumptions, and missing information.
+3. Score business and compliance risk with weighted factors and recommended coverage.
+4. Generate focused invoice approval release-gate test cases.
+5. Review deterministic execution results with four passed tests and one critical failed test.
 6. Diagnose the failure: a high-value invoice bypasses manager approval after a threshold-routing change.
 7. Produce a blocked release decision and evidence report preview.
 
@@ -31,7 +31,7 @@ Open:
 
 ## Current Status
 
-Milestone 1 is a local deterministic prototype. It uses Next.js, TypeScript, Tailwind CSS, App Router, local demo data, pure TypeScript agent functions, and no external service calls.
+Milestone 2 is a local deterministic prototype with a stronger typed release-check pipeline and a more complete command-center dashboard. It uses Next.js, TypeScript, Tailwind CSS, App Router, local demo data, pure TypeScript agent functions, and no external service calls.
 
 The application does not connect to real UiPath APIs yet. It does not include authentication, database storage, payments, or external APIs.
 
