@@ -7,6 +7,7 @@ import { HumanReviewPanel } from "@/components/dashboard/HumanReviewPanel";
 import { RequirementAnalysisPanel } from "@/components/dashboard/RequirementAnalysisPanel";
 import { RiskScoreCard } from "@/components/dashboard/RiskScoreCard";
 import { TestPlanTable } from "@/components/dashboard/TestPlanTable";
+import { UiPathMappingPanel } from "@/components/dashboard/UiPathMappingPanel";
 import { runReleaseCheckPipeline } from "@/lib/orchestrator/releaseCheckOrchestrator";
 
 export default function ReleaseCheckPage() {
@@ -189,6 +190,10 @@ export default function ReleaseCheckPage() {
         <section className="mt-6 grid gap-6 lg:grid-cols-[0.8fr_1.2fr]">
           <HumanReviewPanel decision={releaseCheck.humanReviewDecision} />
           <EvidenceReportView report={releaseCheck.evidenceReport} />
+        </section>
+
+        <section className="mt-6">
+          <UiPathMappingPanel />
         </section>
       </section>
     </main>
