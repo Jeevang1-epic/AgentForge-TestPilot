@@ -26,7 +26,7 @@ The current scenario is an invoice approval automation release check. A threshol
 - External APIs.
 - Generic QA use cases outside invoice approval release governance.
 
-## Milestone 2 Success Criteria
+## Milestone 3 Success Criteria
 
 - The `/` page explains AgentForge TestPilot clearly.
 - The `/release-check` page shows the full release check flow.
@@ -36,3 +36,4 @@ The current scenario is an invoice approval automation release check. A threshol
 - The critical failed test is visible and tied to business impact.
 - The release decision is blocked or requires human review.
 - The evidence report preview is ready for a hackathon demo.
+- The UiPath proof layer maps the local prototype to Test Manager, API Workflows, Action Center, and Coded Agents without claiming a live UiPath connection.

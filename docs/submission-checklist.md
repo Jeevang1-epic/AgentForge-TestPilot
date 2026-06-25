@@ -6,6 +6,7 @@
 - Hackathon track is documented as UiPath AgentHack Track 3: UiPath Test Cloud.
 - Demo remains focused on invoice approval automation release governance.
 - No fake claim is made that real UiPath APIs are connected.
+- UiPath proof layer is clearly described as contract-only and sample-data-only.
 
 ## Application
 
@@ -21,6 +22,8 @@
 - Requirement analysis includes business rules, acceptance criteria, affected workflow steps, assumptions, and missing information.
 - Risk assessment includes weighted factors, score, level, mitigations, and recommended coverage.
 - Execution results show four passed tests and one critical failed test.
+- UiPath proof contracts are present under `uipath/`.
+- UiPath mapping panel is visible on `/release-check`.
 
 ## Demo Requirements
 
@@ -36,6 +39,7 @@
 - Failure diagnosis is visible.
 - Release decision is visible.
 - Evidence report preview is visible.
+- UiPath mapping section is visible.
 
 ## Verification
 

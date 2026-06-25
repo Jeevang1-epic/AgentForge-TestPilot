@@ -23,6 +23,8 @@ The release check pipeline is deterministic and runs locally:
 
 All demo data lives in `src/lib/data/demoReleaseCheck.ts`. No server-side persistence is used. No external APIs are called.
 
+The `uipath/` folder is a proof layer only. It contains Test Manager-style samples, API Workflow contracts, an Action Center review schema, and Coded Agent contracts. These artifacts document future integration boundaries without connecting to real UiPath services.
+
 ## Type Model
 
 Strict TypeScript types define the release check surface:
@@ -39,8 +41,10 @@ Strict TypeScript types define the release check surface:
 
 ## Dashboard Surface
 
-The `/release-check` dashboard presents run metadata, change request context, agent timeline, requirement analysis, risk score, test coverage table, execution results, failed test details, failure diagnosis, release decision, human review routing, and evidence report preview.
+The `/release-check` dashboard presents run metadata, change request context, agent timeline, requirement analysis, risk score, test coverage table, execution results, failed test details, failure diagnosis, release decision, human review routing, evidence report preview, and UiPath mapping panel.
 
 ## Future Integration Boundary
 
 The local orchestrator is the integration boundary. Future UiPath integrations can replace deterministic inputs and outputs while keeping the dashboard components and evidence report structure stable.
+
+Milestone 3 defines the proof contracts first. Future implementation can replace local contract samples with real Test Cloud results, Test Manager records, API Workflow calls, Action Center tasks, and Coded Agent execution after secure configuration is added.

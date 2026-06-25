@@ -35,3 +35,7 @@ Show the blocked release decision, review queue, next action, approvers, and rel
 ## Step 7: Evidence Report
 
 Show the evidence report preview. Explain that future integrations can push this evidence into UiPath Test Manager, Test Cloud, Action Center, and governed coded-agent workflows.
+
+## Step 8: UiPath Mapping
+
+Show the UiPath mapping panel. Explain that the repository includes proof artifacts for Test Manager, API Workflows, Action Center, and Coded Agents, and that real UiPath connectivity is intentionally pending future secure implementation.
