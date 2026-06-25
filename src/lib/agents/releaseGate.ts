@@ -34,6 +34,10 @@ export function decideReleaseGate(
       "Attach passing execution evidence to the release record.",
       "Obtain finance governance approval before production deployment.",
     ],
+    reviewQueue: "Finance automation release governance",
+    nextAction:
+      "Return the change to engineering for routing guard remediation before release review.",
+    riskAccepted: false,
     decidedByAgent: "Release Gate",
     decidedAt: "2026-06-26T08:42:42+05:30",
   };

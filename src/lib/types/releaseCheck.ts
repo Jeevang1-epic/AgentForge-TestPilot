@@ -17,6 +17,8 @@ export type TimelineStatus =
   | "BLOCKED"
   | "NOT_STARTED";
 
+export type TestType = "REGRESSION" | "CONTROL" | "NEGATIVE" | "AUDIT";
+
 export interface ChangeRequest {
   id: string;
   title: string;
@@ -32,33 +34,54 @@ export interface ChangeRequest {
   acceptanceCriteria: string[];
 }
 
+export interface ReleaseCheckMetadata {
+  runId: string;
+  releaseCandidateId: string;
+  runName: string;
+  scenario: string;
+  pipelineVersion: string;
+  dataSource: "LOCAL_DETERMINISTIC_DEMO";
+  generatedAt: string;
+  status: "COMPLETED";
+  qualityGate: "RELEASE_GOVERNANCE";
+}
+
 export interface RequirementItem {
   id: string;
   statement: string;
   source: string;
   priority: RequirementPriority;
+  workflowStep: string;
 }
 
 export interface RequirementAnalysis {
   summary: string;
   extractedRequirements: RequirementItem[];
+  businessRules: string[];
+  acceptanceCriteria: string[];
+  affectedWorkflowSteps: string[];
   affectedSystems: string[];
   controlObjectives: string[];
-  openQuestions: string[];
+  assumptions: string[];
+  missingInformation: string[];
 }
 
 export interface RiskFactor {
   id: string;
   label: string;
+  impactArea: string;
   description: string;
   severity: 1 | 2 | 3 | 4 | 5;
   weight: number;
+  mitigation: string;
 }
 
 export interface RiskAssessment {
   score: number;
   level: RiskLevel;
   factors: RiskFactor[];
+  calculationSummary: string;
+  recommendedCoverage: string[];
   businessImpact: string;
   releaseRecommendation: string;
 }
@@ -68,7 +91,10 @@ export interface TestCase {
   title: string;
   objective: string;
   priority: TestPriority;
-  type: "REGRESSION" | "CONTROL" | "NEGATIVE" | "AUDIT";
+  type: TestType;
+  coverageArea: string;
+  workflowStep: string;
+  testData: string;
   requirementIds: string[];
   preconditions: string[];
   steps: string[];
@@ -82,6 +108,9 @@ export interface TestExecutionResult {
   durationSeconds: number;
   executedAt: string;
   evidence: string;
+  actualResult: string;
+  critical: boolean;
+  artifactRefs: string[];
   errorSummary?: string;
 }
 
@@ -92,7 +121,9 @@ export interface FailureDiagnosis {
   rootCause: string;
   businessImpact: string;
   affectedControl: string;
+  failedWorkflowStep: string;
   reproductionSummary: string;
+  contributingSignals: string[];
   recommendedFixes: string[];
 }
 
@@ -101,8 +132,16 @@ export interface HumanReviewDecision {
   reason: string;
   requiredApprovers: string[];
   releaseConditions: string[];
+  reviewQueue: string;
+  nextAction: string;
+  riskAccepted: boolean;
   decidedByAgent: string;
   decidedAt: string;
+}
+
+export interface EvidenceReportMetric {
+  label: string;
+  value: string;
 }
 
 export interface EvidenceReportSection {
@@ -112,25 +151,32 @@ export interface EvidenceReportSection {
 
 export interface EvidenceReport {
   id: string;
+  releaseCheckId: string;
   title: string;
   generatedAt: string;
+  generatedBy: string;
   releaseDecision: ReleaseDecisionStatus;
   summary: string;
+  executiveSummary: string;
+  metrics: EvidenceReportMetric[];
   sections: EvidenceReportSection[];
   auditTrail: string[];
 }
 
 export interface AgentTimelineStep {
   id: string;
+  sequence: number;
   agentName: string;
   status: TimelineStatus;
   startedAt: string;
   completedAt: string;
+  durationSeconds: number;
   outcome: string;
 }
 
 export interface ReleaseCheck {
   id: string;
+  metadata: ReleaseCheckMetadata;
   changeRequest: ChangeRequest;
   requirementAnalysis: RequirementAnalysis;
   riskAssessment: RiskAssessment;

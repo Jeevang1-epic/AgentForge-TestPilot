@@ -18,6 +18,9 @@ export function generateTestPlan(
         "Verify the requested fast path for a low-risk preferred vendor invoice.",
       priority: "HIGH",
       type: "REGRESSION",
+      coverageArea: "Preferred vendor fast path",
+      workflowStep: "Preferred vendor threshold routing",
+      testData: "INV-10421, preferred vendor, USD 12,500, no exceptions",
       requirementIds: ["REQ-001", "REQ-004"],
       preconditions: [
         "Vendor is marked preferred.",
@@ -39,6 +42,9 @@ export function generateTestPlan(
         "Prove that high-value invoices cannot bypass manager approval after the threshold-routing change.",
       priority: "CRITICAL",
       type: "CONTROL",
+      coverageArea: "High-value approval control",
+      workflowStep: "Manager approval assignment",
+      testData: "INV-88450, preferred vendor, USD 48,750, no exceptions",
       requirementIds: ["REQ-002", "REQ-004"],
       preconditions: [
         "Vendor is marked preferred.",
@@ -60,6 +66,10 @@ export function generateTestPlan(
         "Confirm duplicate detection overrides preferred vendor fast-path routing.",
       priority: "CRITICAL",
       type: "NEGATIVE",
+      coverageArea: "Duplicate exception override",
+      workflowStep: "Exception screening",
+      testData:
+        "INV-44109, preferred vendor, USD 8,900, duplicate match score 0.94",
       requirementIds: ["REQ-003", "REQ-004"],
       preconditions: [
         "Vendor is marked preferred.",
@@ -81,6 +91,9 @@ export function generateTestPlan(
         "Confirm tax exception flags prevent direct finance validation routing.",
       priority: "HIGH",
       type: "NEGATIVE",
+      coverageArea: "Tax exception override",
+      workflowStep: "Exception screening",
+      testData: "INV-57222, preferred vendor, USD 18,000, tax exception flag",
       requirementIds: ["REQ-003", "REQ-004"],
       preconditions: [
         "Vendor is marked preferred.",
@@ -97,46 +110,31 @@ export function generateTestPlan(
     },
     {
       id: "TC-INV-005",
-      title: "Boundary invoice at USD 25,000 requires manager approval",
+      title: "Boundary invoice captures manager approval and audit evidence",
       objective:
-        "Validate exact-threshold handling for the manager approval control.",
+        "Validate exact-threshold handling and release evidence for the manager approval control.",
       priority: riskAssessment.level === "CRITICAL" ? "CRITICAL" : "HIGH",
-      type: "CONTROL",
-      requirementIds: ["REQ-002"],
+      type: "AUDIT",
+      coverageArea: "Boundary threshold and audit evidence",
+      workflowStep: "Approval path audit logging",
+      testData: `INV-25000, preferred vendor, USD 25,000, ${changeRequest.automationName}`,
+      requirementIds: requirementAnalysis.extractedRequirements.map(
+        (requirement) => requirement.id,
+      ),
       preconditions: [
         "Vendor is marked preferred.",
         "Invoice amount is exactly USD 25,000.",
         "No exception flags are present.",
+        "Audit logging is enabled for routing decisions.",
       ],
       steps: [
         "Submit the boundary invoice.",
         "Run threshold-routing evaluation.",
         "Confirm whether the manager approval queue is assigned.",
+        "Review the routing audit evidence for threshold and approval path.",
       ],
       expectedResult:
-        "Invoice routes to manager approval because the threshold rule is inclusive.",
-    },
-    {
-      id: "TC-INV-006",
-      title: "Audit log captures threshold and approval path",
-      objective:
-        "Verify the release produces evidence suitable for finance governance review.",
-      priority: "HIGH",
-      type: "AUDIT",
-      requirementIds: requirementAnalysis.extractedRequirements.map(
-        (requirement) => requirement.id,
-      ),
-      preconditions: [
-        `${changeRequest.automationName} audit logging is enabled.`,
-        "A mixed invoice batch includes fast-path, manager approval, and exception routes.",
-      ],
-      steps: [
-        "Process the mixed invoice batch.",
-        "Open the audit evidence log.",
-        "Review logged threshold, vendor status, invoice amount, and approval path.",
-      ],
-      expectedResult:
-        "Each invoice has complete routing evidence with no missing approval path fields.",
+        "Invoice routes to manager approval and records threshold, vendor status, amount, and approval path.",
     },
   ];
 }

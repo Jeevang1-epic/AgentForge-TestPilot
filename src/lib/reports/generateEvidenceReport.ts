@@ -11,6 +11,7 @@ import type {
 } from "@/lib/types/releaseCheck";
 
 interface EvidenceReportInput {
+  releaseCheckId: string;
   requirementAnalysis: RequirementAnalysis;
   riskAssessment: RiskAssessment;
   testCases: TestCase[];
@@ -32,11 +33,37 @@ export function generateEvidenceReport(
 
   return {
     id: "EVR-AF-INV-2026-001",
+    releaseCheckId: input.releaseCheckId,
     title: "Invoice approval automation release evidence",
     generatedAt: demoGeneratedAt,
+    generatedBy: "Evidence Reporter",
     releaseDecision: input.humanReviewDecision.decision,
     summary:
       "The release check found a critical high-value approval bypass in the invoice approval automation. The release is blocked until remediation, rerun evidence, and governance review are complete.",
+    executiveSummary:
+      "The release candidate should not move to production because the high-value manager approval control failed in deterministic pre-release testing.",
+    metrics: [
+      {
+        label: "Requirements reviewed",
+        value: String(input.requirementAnalysis.extractedRequirements.length),
+      },
+      {
+        label: "Tests generated",
+        value: String(input.testCases.length),
+      },
+      {
+        label: "Tests passed",
+        value: String(passedTests.length),
+      },
+      {
+        label: "Critical failures",
+        value: String(failedTests.filter((result) => result.critical).length),
+      },
+      {
+        label: "Risk score",
+        value: String(input.riskAssessment.score),
+      },
+    ],
     sections: [
       {
         title: "Requirements reviewed",
@@ -49,7 +76,9 @@ export function generateEvidenceReport(
         findings: [
           `Risk score: ${input.riskAssessment.score}`,
           `Risk level: ${input.riskAssessment.level}`,
+          input.riskAssessment.calculationSummary,
           input.riskAssessment.businessImpact,
+          ...input.riskAssessment.recommendedCoverage,
         ],
       },
       {
@@ -58,6 +87,10 @@ export function generateEvidenceReport(
           `${passedTests.length} tests passed.`,
           `${failedTests.length} critical test failed.`,
           `${input.testCases.length} generated test cases were reviewed.`,
+          ...failedTests.map(
+            (result) =>
+              `${result.testCaseId}: ${result.errorSummary ?? result.actualResult}`,
+          ),
         ],
       },
       {
@@ -66,6 +99,7 @@ export function generateEvidenceReport(
           input.failureDiagnosis.title,
           input.failureDiagnosis.rootCause,
           input.failureDiagnosis.businessImpact,
+          ...input.failureDiagnosis.contributingSignals,
         ],
       },
       {

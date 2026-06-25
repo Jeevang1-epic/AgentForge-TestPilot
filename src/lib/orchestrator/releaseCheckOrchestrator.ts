@@ -1,6 +1,7 @@
 import {
   baseTimeline,
   demoChangeRequest,
+  demoReleaseCheckMetadata,
 } from "@/lib/data/demoReleaseCheck";
 import { reviewExecutionResults } from "@/lib/agents/executionAnalyst";
 import { diagnoseFailure } from "@/lib/agents/failureInvestigator";
@@ -12,6 +13,7 @@ import { generateEvidenceReport } from "@/lib/reports/generateEvidenceReport";
 import type { ReleaseCheck } from "@/lib/types/releaseCheck";
 
 export function runReleaseCheckPipeline(): ReleaseCheck {
+  const releaseCheckId = demoReleaseCheckMetadata.runId;
   const requirementAnalysis = analyzeRequirements(demoChangeRequest);
   const riskAssessment = mapBusinessRisk(
     demoChangeRequest,
@@ -30,6 +32,7 @@ export function runReleaseCheckPipeline(): ReleaseCheck {
     failureDiagnosis,
   );
   const evidenceReport = generateEvidenceReport({
+    releaseCheckId,
     requirementAnalysis,
     riskAssessment,
     testCases,
@@ -40,7 +43,8 @@ export function runReleaseCheckPipeline(): ReleaseCheck {
   });
 
   return {
-    id: "RC-AF-INV-2026-001",
+    id: releaseCheckId,
+    metadata: demoReleaseCheckMetadata,
     changeRequest: demoChangeRequest,
     requirementAnalysis,
     riskAssessment,

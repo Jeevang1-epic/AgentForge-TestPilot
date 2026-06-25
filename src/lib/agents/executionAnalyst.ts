@@ -14,6 +14,10 @@ const resultTemplates: Record<string, ResultTemplate> = {
     executedAt,
     evidence:
       "Preferred vendor invoice INV-10421 routed to finance validation with fast-path reason captured.",
+    actualResult:
+      "The invoice moved to finance validation and recorded preferred vendor fast-path routing.",
+    critical: false,
+    artifactRefs: ["local-run/INV-10421-routing.json"],
   },
   "TC-INV-002": {
     status: "FAILED",
@@ -21,6 +25,13 @@ const resultTemplates: Record<string, ResultTemplate> = {
     executedAt,
     evidence:
       "Invoice INV-88450 for USD 48,750 routed directly to finance validation.",
+    actualResult:
+      "The invoice skipped manager approval and entered finance validation.",
+    critical: true,
+    artifactRefs: [
+      "local-run/INV-88450-routing.json",
+      "local-run/INV-88450-queue-snapshot.txt",
+    ],
     errorSummary:
       "High-value invoice bypasses manager approval after threshold-routing change.",
   },
@@ -30,6 +41,10 @@ const resultTemplates: Record<string, ResultTemplate> = {
     executedAt,
     evidence:
       "Duplicate invoice candidate INV-44109 routed to manual review with duplicate override reason captured.",
+    actualResult:
+      "Duplicate detection overrode preferred vendor routing and assigned manual review.",
+    critical: false,
+    artifactRefs: ["local-run/INV-44109-duplicate-review.json"],
   },
   "TC-INV-004": {
     status: "PASSED",
@@ -37,20 +52,21 @@ const resultTemplates: Record<string, ResultTemplate> = {
     executedAt,
     evidence:
       "Tax exception invoice INV-57222 routed to manual review with exception reason captured.",
+    actualResult:
+      "Tax exception handling overrode the fast path and assigned manual review.",
+    critical: false,
+    artifactRefs: ["local-run/INV-57222-tax-exception.json"],
   },
   "TC-INV-005": {
     status: "PASSED",
-    durationSeconds: 19,
+    durationSeconds: 27,
     executedAt,
     evidence:
-      "Boundary invoice INV-25000 routed to manager approval at exactly USD 25,000.",
-  },
-  "TC-INV-006": {
-    status: "PASSED",
-    durationSeconds: 31,
-    executedAt,
-    evidence:
-      "Audit log captured threshold, vendor status, invoice amount, and approval path for all sampled invoices.",
+      "Boundary invoice INV-25000 routed to manager approval with threshold and approval path evidence captured.",
+    actualResult:
+      "The exact-threshold invoice assigned manager approval and wrote complete audit evidence.",
+    critical: false,
+    artifactRefs: ["local-run/INV-25000-audit-evidence.json"],
   },
 };
 
@@ -63,6 +79,9 @@ export function reviewExecutionResults(
       durationSeconds: 0,
       executedAt,
       evidence: "No deterministic execution template was defined.",
+      actualResult: "No result was produced.",
+      critical: false,
+      artifactRefs: [],
     };
 
     return {
