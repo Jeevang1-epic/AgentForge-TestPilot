@@ -1,0 +1,47 @@
+{
+  "source": "AgentForge TestPilot local proof layer",
+  "releaseCheckId": "RC-AF-INV-2026-001",
+  "executedAt": "2026-06-26T08:41:40+05:30",
+  "results": [
+    {
+      "testCaseId": "TC-INV-001",
+      "status": "PASSED",
+      "actualResult": "Invoice INV-10421 routed to finance validation with preferred vendor fast-path evidence.",
+      "severity": "NONE",
+      "evidenceSummary": "Queue assignment and audit record matched expected routing.",
+      "failureCategory": null
+    },
+    {
+      "testCaseId": "TC-INV-002",
+      "status": "FAILED",
+      "actualResult": "High-value invoice INV-88450 routed directly to finance validation without manager approval.",
+      "severity": "CRITICAL",
+      "evidenceSummary": "Routing evidence showed preferred vendor branch was applied before the high-value approval guard.",
+      "failureCategory": "High-value invoice bypasses manager approval"
+    },
+    {
+      "testCaseId": "TC-INV-003",
+      "status": "PASSED",
+      "actualResult": "Duplicate invoice candidate INV-44109 routed to manual review.",
+      "severity": "NONE",
+      "evidenceSummary": "Duplicate override reason was captured in routing evidence.",
+      "failureCategory": null
+    },
+    {
+      "testCaseId": "TC-INV-004",
+      "status": "PASSED",
+      "actualResult": "Tax exception invoice INV-57222 routed to manual review.",
+      "severity": "NONE",
+      "evidenceSummary": "Tax exception override reason was captured in routing evidence.",
+      "failureCategory": null
+    },
+    {
+      "testCaseId": "TC-INV-005",
+      "status": "PASSED",
+      "actualResult": "Boundary invoice INV-25000 routed to manager approval with complete audit evidence.",
+      "severity": "NONE",
+      "evidenceSummary": "Threshold, vendor status, amount, and approval path were recorded.",
+      "failureCategory": null
+    }
+  ]
+}

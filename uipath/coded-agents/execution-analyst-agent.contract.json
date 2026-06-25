@@ -1,0 +1,52 @@
+{
+  "agentName": "Execution Analyst",
+  "responsibility": "Review invoice approval execution results and summarize passed tests, failed tests, severity, evidence, and release impact.",
+  "inputSchema": {
+    "type": "object",
+    "required": ["testCases", "executionResults"],
+    "properties": {
+      "testCases": {
+        "type": "array",
+        "items": {
+          "type": "object"
+        }
+      },
+      "executionResults": {
+        "type": "array",
+        "items": {
+          "type": "object"
+        }
+      }
+    },
+    "additionalProperties": false
+  },
+  "outputSchema": {
+    "type": "object",
+    "required": ["passedCount", "failedCount", "criticalFailures"],
+    "properties": {
+      "passedCount": {
+        "type": "integer"
+      },
+      "failedCount": {
+        "type": "integer"
+      },
+      "criticalFailures": {
+        "type": "array",
+        "items": {
+          "type": "object"
+        }
+      }
+    },
+    "additionalProperties": false
+  },
+  "constraints": [
+    "Do not modify submitted execution results.",
+    "Classify only based on provided evidence.",
+    "Treat high-value approval bypass as critical."
+  ],
+  "failureModes": [
+    "Execution result missing status.",
+    "Failed test lacks actual result.",
+    "Evidence summary is missing for critical failure."
+  ]
+}

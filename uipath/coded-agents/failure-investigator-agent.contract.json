@@ -1,0 +1,54 @@
+{
+  "agentName": "Failure Investigator",
+  "responsibility": "Diagnose why high-value invoices bypassed manager approval and identify remediation steps.",
+  "inputSchema": {
+    "type": "object",
+    "required": ["failedExecutionResult", "requirementAnalysis"],
+    "properties": {
+      "failedExecutionResult": {
+        "type": "object"
+      },
+      "requirementAnalysis": {
+        "type": "object"
+      }
+    },
+    "additionalProperties": false
+  },
+  "outputSchema": {
+    "type": "object",
+    "required": [
+      "rootCause",
+      "businessImpact",
+      "affectedControl",
+      "recommendedFixes"
+    ],
+    "properties": {
+      "rootCause": {
+        "type": "string"
+      },
+      "businessImpact": {
+        "type": "string"
+      },
+      "affectedControl": {
+        "type": "string"
+      },
+      "recommendedFixes": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      }
+    },
+    "additionalProperties": false
+  },
+  "constraints": [
+    "Explain the failed approval-control path.",
+    "Keep remediation tied to invoice approval routing.",
+    "Do not claim a production incident occurred."
+  ],
+  "failureModes": [
+    "No failed execution result supplied.",
+    "Failure cannot be linked to a requirement.",
+    "Recommended fix is not testable."
+  ]
+}

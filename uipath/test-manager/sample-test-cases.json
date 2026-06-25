@@ -1,0 +1,86 @@
+{
+  "source": "AgentForge TestPilot local proof layer",
+  "requirementId": "REQ-INV-THRESHOLD-001",
+  "testCases": [
+    {
+      "id": "TC-INV-001",
+      "title": "Preferred vendor invoice below threshold routes to finance",
+      "priority": "HIGH",
+      "scenarioType": "REGRESSION",
+      "linkedRequirement": "REQ-INV-THRESHOLD-001",
+      "riskArea": "Preferred vendor fast path",
+      "steps": [
+        "Submit invoice INV-10421 for a preferred vendor.",
+        "Set invoice amount to USD 12,500.",
+        "Confirm no duplicate, tax, or compliance flags exist.",
+        "Run threshold-routing evaluation.",
+        "Review assigned queue and routing evidence."
+      ],
+      "expectedResult": "Invoice routes to finance validation and records preferred vendor fast-path evidence."
+    },
+    {
+      "id": "TC-INV-002",
+      "title": "High-value preferred vendor invoice requires manager approval",
+      "priority": "CRITICAL",
+      "scenarioType": "CONTROL",
+      "linkedRequirement": "REQ-INV-THRESHOLD-001",
+      "riskArea": "High-value approval control",
+      "steps": [
+        "Submit invoice INV-88450 for a preferred vendor.",
+        "Set invoice amount to USD 48,750.",
+        "Confirm no duplicate or tax exception flags exist.",
+        "Run threshold-routing evaluation.",
+        "Review assigned queue before finance validation."
+      ],
+      "expectedResult": "Invoice routes to manager approval before it can proceed to finance validation."
+    },
+    {
+      "id": "TC-INV-003",
+      "title": "Duplicate invoice override routes to manual review",
+      "priority": "CRITICAL",
+      "scenarioType": "NEGATIVE",
+      "linkedRequirement": "REQ-INV-THRESHOLD-001",
+      "riskArea": "Duplicate invoice control",
+      "steps": [
+        "Submit invoice INV-44109 for a preferred vendor.",
+        "Set invoice amount to USD 8,900.",
+        "Set duplicate match score to 0.94.",
+        "Run exception evaluation before threshold routing.",
+        "Review assigned queue and override evidence."
+      ],
+      "expectedResult": "Invoice routes to manual review and records duplicate override evidence."
+    },
+    {
+      "id": "TC-INV-004",
+      "title": "Tax exception override blocks automated fast path",
+      "priority": "HIGH",
+      "scenarioType": "NEGATIVE",
+      "linkedRequirement": "REQ-INV-THRESHOLD-001",
+      "riskArea": "Tax exception control",
+      "steps": [
+        "Submit invoice INV-57222 for a preferred vendor.",
+        "Set invoice amount to USD 18,000.",
+        "Apply a tax exception flag.",
+        "Run exception evaluation and threshold routing.",
+        "Inspect final queue assignment."
+      ],
+      "expectedResult": "Invoice routes to manual review and records tax exception override evidence."
+    },
+    {
+      "id": "TC-INV-005",
+      "title": "Boundary invoice captures manager approval and audit evidence",
+      "priority": "CRITICAL",
+      "scenarioType": "AUDIT",
+      "linkedRequirement": "REQ-INV-THRESHOLD-001",
+      "riskArea": "Boundary threshold and audit evidence",
+      "steps": [
+        "Submit invoice INV-25000 for a preferred vendor.",
+        "Set invoice amount to exactly USD 25,000.",
+        "Confirm no exception flags exist.",
+        "Run threshold-routing evaluation.",
+        "Review approval queue and audit evidence."
+      ],
+      "expectedResult": "Invoice routes to manager approval and records threshold, vendor status, amount, and approval path."
+    }
+  ]
+}

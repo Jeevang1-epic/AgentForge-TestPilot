@@ -1,0 +1,81 @@
+{
+  "agentName": "Test Planner",
+  "responsibility": "Produce realistic invoice approval release-gate test cases linked to requirements and risk areas.",
+  "inputSchema": {
+    "type": "object",
+    "required": ["requirementAnalysis", "riskAssessment"],
+    "properties": {
+      "requirementAnalysis": {
+        "type": "object"
+      },
+      "riskAssessment": {
+        "type": "object"
+      }
+    },
+    "additionalProperties": false
+  },
+  "outputSchema": {
+    "type": "object",
+    "required": ["testCases"],
+    "properties": {
+      "testCases": {
+        "type": "array",
+        "minItems": 5,
+        "items": {
+          "type": "object",
+          "required": [
+            "id",
+            "title",
+            "priority",
+            "scenarioType",
+            "linkedRequirement",
+            "steps",
+            "expectedResult",
+            "riskArea"
+          ],
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "title": {
+              "type": "string"
+            },
+            "priority": {
+              "type": "string"
+            },
+            "scenarioType": {
+              "type": "string"
+            },
+            "linkedRequirement": {
+              "type": "string"
+            },
+            "steps": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "expectedResult": {
+              "type": "string"
+            },
+            "riskArea": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        }
+      }
+    },
+    "additionalProperties": false
+  },
+  "constraints": [
+    "Generate only invoice approval release-governance tests.",
+    "Link each test to a requirement and risk area.",
+    "Do not create live UiPath Test Manager records."
+  ],
+  "failureModes": [
+    "No linked requirement.",
+    "Coverage missing for critical risk.",
+    "Test step lacks expected outcome."
+  ]
+}

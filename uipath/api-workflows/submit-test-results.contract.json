@@ -1,0 +1,75 @@
+{
+  "name": "submit-test-results",
+  "purpose": "Submit future UiPath Test Cloud or Test Manager execution outcomes into the release-check evidence model.",
+  "status": "contract-only",
+  "requestSchema": {
+    "type": "object",
+    "required": ["releaseCheckId", "results"],
+    "properties": {
+      "releaseCheckId": {
+        "type": "string"
+      },
+      "results": {
+        "type": "array",
+        "minItems": 1,
+        "items": {
+          "type": "object",
+          "required": [
+            "testCaseId",
+            "status",
+            "actualResult",
+            "severity",
+            "evidenceSummary"
+          ],
+          "properties": {
+            "testCaseId": {
+              "type": "string"
+            },
+            "status": {
+              "type": "string",
+              "enum": ["PASSED", "FAILED", "SKIPPED"]
+            },
+            "actualResult": {
+              "type": "string"
+            },
+            "severity": {
+              "type": "string",
+              "enum": ["NONE", "LOW", "MEDIUM", "HIGH", "CRITICAL"]
+            },
+            "evidenceSummary": {
+              "type": "string"
+            },
+            "failureCategory": {
+              "type": ["string", "null"]
+            }
+          },
+          "additionalProperties": false
+        }
+      }
+    },
+    "additionalProperties": false
+  },
+  "responseSchema": {
+    "type": "object",
+    "required": ["releaseCheckId", "accepted", "releaseDecisionCandidate"],
+    "properties": {
+      "releaseCheckId": {
+        "type": "string"
+      },
+      "accepted": {
+        "type": "boolean"
+      },
+      "releaseDecisionCandidate": {
+        "type": "string",
+        "enum": ["APPROVED", "NEEDS_HUMAN_REVIEW", "BLOCKED"]
+      },
+      "validationMessages": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      }
+    },
+    "additionalProperties": false
+  }
+}

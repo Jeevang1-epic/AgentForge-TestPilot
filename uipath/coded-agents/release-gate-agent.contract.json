@@ -1,0 +1,65 @@
+{
+  "agentName": "Release Gate",
+  "responsibility": "Produce a deterministic release decision and human review routing based on risk, execution results, and failure diagnosis.",
+  "inputSchema": {
+    "type": "object",
+    "required": ["riskAssessment", "executionSummary", "failureDiagnosis"],
+    "properties": {
+      "riskAssessment": {
+        "type": "object"
+      },
+      "executionSummary": {
+        "type": "object"
+      },
+      "failureDiagnosis": {
+        "type": "object"
+      }
+    },
+    "additionalProperties": false
+  },
+  "outputSchema": {
+    "type": "object",
+    "required": [
+      "decision",
+      "reason",
+      "requiredApprovers",
+      "releaseConditions",
+      "reviewQueue"
+    ],
+    "properties": {
+      "decision": {
+        "type": "string",
+        "enum": ["APPROVED", "NEEDS_HUMAN_REVIEW", "BLOCKED"]
+      },
+      "reason": {
+        "type": "string"
+      },
+      "requiredApprovers": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "releaseConditions": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "reviewQueue": {
+        "type": "string"
+      }
+    },
+    "additionalProperties": false
+  },
+  "constraints": [
+    "Block releases with critical approval-control failures.",
+    "Route uncertain decisions to human review.",
+    "Do not bypass finance governance approval."
+  ],
+  "failureModes": [
+    "Missing risk assessment.",
+    "Execution summary conflicts with failure diagnosis.",
+    "No required approver can be identified."
+  ]
+}

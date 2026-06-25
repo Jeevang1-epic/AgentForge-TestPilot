@@ -1,0 +1,68 @@
+{
+  "agentName": "Requirement Analyst",
+  "responsibility": "Extract invoice approval release requirements, business rules, acceptance criteria, affected workflow steps, assumptions, and missing information.",
+  "inputSchema": {
+    "type": "object",
+    "required": ["changeRequest"],
+    "properties": {
+      "changeRequest": {
+        "type": "object",
+        "required": ["id", "title", "summary", "acceptanceCriteria"],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "summary": {
+            "type": "string"
+          },
+          "acceptanceCriteria": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "additionalProperties": false
+  },
+  "outputSchema": {
+    "type": "object",
+    "required": ["requirements", "businessRules", "missingInformation"],
+    "properties": {
+      "requirements": {
+        "type": "array",
+        "items": {
+          "type": "object"
+        }
+      },
+      "businessRules": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "missingInformation": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      }
+    },
+    "additionalProperties": false
+  },
+  "constraints": [
+    "Use only release-check input data.",
+    "Do not call external services.",
+    "Do not infer that real UiPath records already exist."
+  ],
+  "failureModes": [
+    "Missing acceptance criteria.",
+    "Ambiguous threshold policy.",
+    "Unmapped workflow step."
+  ]
+}

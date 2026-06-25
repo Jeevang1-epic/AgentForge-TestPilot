@@ -1,0 +1,52 @@
+{
+  "agentName": "Risk Mapper",
+  "responsibility": "Calculate deterministic risk score, risk level, risk factors, mitigations, and recommended coverage for invoice approval release governance.",
+  "inputSchema": {
+    "type": "object",
+    "required": ["requirementAnalysis"],
+    "properties": {
+      "requirementAnalysis": {
+        "type": "object"
+      }
+    },
+    "additionalProperties": false
+  },
+  "outputSchema": {
+    "type": "object",
+    "required": ["score", "level", "factors", "recommendedCoverage"],
+    "properties": {
+      "score": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 100
+      },
+      "level": {
+        "type": "string",
+        "enum": ["LOW", "MEDIUM", "HIGH", "CRITICAL"]
+      },
+      "factors": {
+        "type": "array",
+        "items": {
+          "type": "object"
+        }
+      },
+      "recommendedCoverage": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      }
+    },
+    "additionalProperties": false
+  },
+  "constraints": [
+    "Use deterministic weighted scoring.",
+    "Keep all risk explanations traceable to invoice approval controls.",
+    "Do not approve a release directly."
+  ],
+  "failureModes": [
+    "Missing requirement analysis.",
+    "No control objective identified.",
+    "Risk score cannot be calculated from provided factors."
+  ]
+}

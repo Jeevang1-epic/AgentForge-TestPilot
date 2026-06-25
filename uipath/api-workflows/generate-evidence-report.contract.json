@@ -1,0 +1,83 @@
+{
+  "name": "generate-evidence-report",
+  "purpose": "Generate structured release evidence from requirement, risk, execution, diagnosis, and release-gate inputs.",
+  "status": "contract-only",
+  "requestSchema": {
+    "type": "object",
+    "required": [
+      "releaseCheckId",
+      "requirementIds",
+      "testCaseIds",
+      "includeAuditTrail"
+    ],
+    "properties": {
+      "releaseCheckId": {
+        "type": "string"
+      },
+      "requirementIds": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "testCaseIds": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "includeAuditTrail": {
+        "type": "boolean"
+      },
+      "requestedBy": {
+        "type": "string"
+      }
+    },
+    "additionalProperties": false
+  },
+  "responseSchema": {
+    "type": "object",
+    "required": [
+      "evidenceReportId",
+      "releaseCheckId",
+      "releaseDecision",
+      "summary",
+      "sections"
+    ],
+    "properties": {
+      "evidenceReportId": {
+        "type": "string"
+      },
+      "releaseCheckId": {
+        "type": "string"
+      },
+      "releaseDecision": {
+        "type": "string",
+        "enum": ["APPROVED", "NEEDS_HUMAN_REVIEW", "BLOCKED"]
+      },
+      "summary": {
+        "type": "string"
+      },
+      "sections": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": ["title", "findings"],
+          "properties": {
+            "title": {
+              "type": "string"
+            },
+            "findings": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "additionalProperties": false
+        }
+      }
+    },
+    "additionalProperties": false
+  }
+}

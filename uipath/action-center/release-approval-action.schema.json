@@ -1,0 +1,76 @@
+{
+  "name": "release-approval-action",
+  "purpose": "Define the human review action for a blocked or review-required invoice approval automation release.",
+  "inputSchema": {
+    "type": "object",
+    "required": [
+      "releaseCheckId",
+      "automationName",
+      "riskLevel",
+      "releaseDecisionCandidate",
+      "failureSummary",
+      "releaseConditions"
+    ],
+    "properties": {
+      "releaseCheckId": {
+        "type": "string"
+      },
+      "automationName": {
+        "type": "string"
+      },
+      "riskLevel": {
+        "type": "string",
+        "enum": ["LOW", "MEDIUM", "HIGH", "CRITICAL"]
+      },
+      "releaseDecisionCandidate": {
+        "type": "string",
+        "enum": ["NEEDS_HUMAN_REVIEW", "BLOCKED"]
+      },
+      "failureSummary": {
+        "type": "string"
+      },
+      "releaseConditions": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      }
+    },
+    "additionalProperties": false
+  },
+  "outputSchema": {
+    "type": "object",
+    "required": [
+      "reviewer",
+      "decision",
+      "reason",
+      "riskAcknowledgement",
+      "timestamp",
+      "finalReleaseStatus"
+    ],
+    "properties": {
+      "reviewer": {
+        "type": "string"
+      },
+      "decision": {
+        "type": "string",
+        "enum": ["APPROVE_WITH_CONDITIONS", "REJECT_RELEASE", "REQUEST_MORE_EVIDENCE"]
+      },
+      "reason": {
+        "type": "string"
+      },
+      "riskAcknowledgement": {
+        "type": "boolean"
+      },
+      "timestamp": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "finalReleaseStatus": {
+        "type": "string",
+        "enum": ["APPROVED", "NEEDS_HUMAN_REVIEW", "BLOCKED"]
+      }
+    },
+    "additionalProperties": false
+  }
+}

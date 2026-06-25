@@ -1,0 +1,69 @@
+{
+  "name": "get-release-check",
+  "purpose": "Retrieve release-check context and deterministic evidence for a future UiPath API Workflow.",
+  "status": "contract-only",
+  "requestSchema": {
+    "type": "object",
+    "required": ["releaseCheckId"],
+    "properties": {
+      "releaseCheckId": {
+        "type": "string",
+        "example": "RC-AF-INV-2026-001"
+      },
+      "includeEvidenceReport": {
+        "type": "boolean",
+        "default": true
+      }
+    },
+    "additionalProperties": false
+  },
+  "responseSchema": {
+    "type": "object",
+    "required": [
+      "releaseCheckId",
+      "automationName",
+      "riskLevel",
+      "releaseDecision",
+      "testSummary"
+    ],
+    "properties": {
+      "releaseCheckId": {
+        "type": "string"
+      },
+      "automationName": {
+        "type": "string"
+      },
+      "riskLevel": {
+        "type": "string",
+        "enum": ["LOW", "MEDIUM", "HIGH", "CRITICAL"]
+      },
+      "releaseDecision": {
+        "type": "string",
+        "enum": ["APPROVED", "NEEDS_HUMAN_REVIEW", "BLOCKED"]
+      },
+      "testSummary": {
+        "type": "object",
+        "required": ["passed", "failed", "criticalFailures"],
+        "properties": {
+          "passed": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "failed": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "criticalFailures": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "additionalProperties": false
+      },
+      "evidenceReportId": {
+        "type": "string"
+      }
+    },
+    "additionalProperties": false
+  }
+}

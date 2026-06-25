@@ -1,0 +1,51 @@
+{
+  "releaseCheckId": "RC-AF-INV-2026-001",
+  "releaseDecision": "BLOCKED",
+  "requirements": [
+    {
+      "requirementId": "REQ-INV-THRESHOLD-001",
+      "title": "Invoice approval threshold routing",
+      "testCaseIds": [
+        "TC-INV-001",
+        "TC-INV-002",
+        "TC-INV-003",
+        "TC-INV-004",
+        "TC-INV-005"
+      ],
+      "executionResults": [
+        {
+          "testCaseId": "TC-INV-001",
+          "status": "PASSED"
+        },
+        {
+          "testCaseId": "TC-INV-002",
+          "status": "FAILED"
+        },
+        {
+          "testCaseId": "TC-INV-003",
+          "status": "PASSED"
+        },
+        {
+          "testCaseId": "TC-INV-004",
+          "status": "PASSED"
+        },
+        {
+          "testCaseId": "TC-INV-005",
+          "status": "PASSED"
+        }
+      ],
+      "failedPaths": [
+        {
+          "testCaseId": "TC-INV-002",
+          "workflowStep": "Manager approval assignment",
+          "failure": "High-value invoice bypasses manager approval"
+        }
+      ],
+      "releaseDecisionEvidence": [
+        "Critical approval-control test failed.",
+        "High-value invoice entered finance validation before manager approval.",
+        "Release requires remediation, rerun evidence, and finance governance review."
+      ]
+    }
+  ]
+}
