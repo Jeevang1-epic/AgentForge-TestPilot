@@ -27,3 +27,16 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
+
+# Local AI assistant/tooling artifacts
+.agents/
+.codex/
+.cursor/
+.claude/
+AGENTS.md
+CODEX.md
+CLAUDE.md
+cloud.md
+vibe.md
+codex-build-log.md
+docs/codex-build-log.md
