@@ -7,6 +7,7 @@ const baseUrl = process.env.SCREENSHOT_BASE_URL ?? "http://localhost:3000";
 const rootDir = fileURLToPath(new URL("..", import.meta.url));
 const outputDir = path.join(rootDir, "public", "screenshots");
 const viewport = { width: 1440, height: 1100 };
+const screenshotOptions = { animations: "disabled" };
 
 const captures = [
   {
@@ -29,9 +30,22 @@ const captures = [
 async function openPage(page, route) {
   await page.goto(`${baseUrl}${route}`, { waitUntil: "networkidle" });
   await page.addStyleTag({
-    content:
-      '[data-motion-reveal="true"] { opacity: 1 !important; transform: none !important; }',
+    content: `
+      html { scroll-behavior: auto !important; }
+      *, *::before, *::after {
+        animation-delay: 0s !important;
+        animation-duration: 0s !important;
+        caret-color: transparent !important;
+        transition-delay: 0s !important;
+        transition-duration: 0s !important;
+      }
+      [data-motion-reveal="true"] {
+        opacity: 1 !important;
+        transform: none !important;
+      }
+    `,
   });
+  await page.evaluate(() => document.fonts?.ready);
 }
 
 async function settlePage(page) {
@@ -61,6 +75,7 @@ async function captureElement(page, capture) {
   await locator.scrollIntoViewIfNeeded();
   await page.waitForTimeout(650);
   await locator.screenshot({
+    ...screenshotOptions,
     path: path.join(outputDir, capture.file),
   });
 }
@@ -75,20 +90,24 @@ async function main() {
     await openPage(page, "/");
     await settlePage(page);
     await page.screenshot({
+      ...screenshotOptions,
       fullPage: true,
       path: path.join(outputDir, "homepage-full.png"),
     });
     await page.screenshot({
+      ...screenshotOptions,
       path: path.join(outputDir, "homepage-viewport.png"),
     });
 
     await openPage(page, "/release-check");
     await settlePage(page);
     await page.screenshot({
+      ...screenshotOptions,
       fullPage: true,
       path: path.join(outputDir, "release-check-full.png"),
     });
     await page.screenshot({
+      ...screenshotOptions,
       path: path.join(outputDir, "release-check-viewport.png"),
     });
 
