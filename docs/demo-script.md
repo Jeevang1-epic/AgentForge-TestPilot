@@ -2,40 +2,64 @@
 
 ## Opening
 
-AgentForge TestPilot is a release-governance dashboard for enterprise automation teams. This demo checks whether an invoice approval automation change is safe to release.
+AgentForge TestPilot is an AI release gate for UiPath automations. The demo shows how an invoice approval change request can be checked before production release with deterministic requirements, risk, testing, failure diagnosis, human review, and evidence reporting.
 
 ## Step 1: Landing Page
 
 Open `http://localhost:3000`.
 
-Explain that the product coordinates deterministic local steps across requirement analysis, risk mapping, test planning, execution review, failure diagnosis, release gating, and evidence reporting.
+Say: "AgentForge TestPilot helps automation teams prove whether a release is safe before it reaches production. This prototype focuses on invoice approval governance for UiPath automation teams."
+
+Show the product pitch, the blocked release finding, and the navigation into the release dashboard.
 
 ## Step 2: Release Check Dashboard
 
 Open `http://localhost:3000/release-check`.
 
-Show the invoice approval change request. The proposed change adjusts threshold-based routing for approval queues.
+Show the project thesis, demo scenario, release candidate, and Judge Demo Flow panel. Explain the five-step story: a requirement change enters, the pipeline analyzes risk and generates tests, execution detects a critical failure, the release is blocked for human review, and the evidence report records the decision.
 
-## Step 3: Requirements And Risk
+## Step 3: Change Request
 
-Point to the extracted business rules, acceptance criteria, assumptions, missing information, and risk score. The risk is critical because the change affects financial controls, approval thresholds, exception handling, auditability, and release timing.
+Show the invoice approval threshold-routing request.
 
-## Step 4: Test Plan
+Say: "Finance wants preferred vendor invoices below USD 25,000 to move faster, but high-value invoices still need manager approval. The release risk is that a routing change can accidentally bypass a financial control."
 
-Show the coverage table. The plan covers preferred vendor fast-path routing, high-value manager approval, duplicate invoice override, tax exception override, and exact-threshold audit evidence.
+## Step 4: Requirement Analysis And Risk
 
-## Step 5: Failure Diagnosis
+Show the requirement analysis and risk score.
 
-Show the failed critical test. Four tests passed and one critical control test failed because a high-value invoice bypasses manager approval after the threshold-routing change. The failure diagnosis connects the defect to a missing guard in the routing condition.
+Point out the extracted business rules, acceptance criteria, affected workflow steps, assumptions, missing information, risk factors, recommended coverage, and critical risk score.
 
-## Step 6: Release Gate
+## Step 5: Test Coverage And Execution
 
-Show the blocked release decision, review queue, next action, approvers, and release conditions. The release should not proceed until the approval routing defect is fixed, regression tests pass, and a business owner reviews the evidence.
+Show the test coverage table and execution results.
 
-## Step 7: Evidence Report
+Say: "The system generated five release-gate tests. Four passed, but the high-value manager approval control failed. That is the defect that matters for release governance."
 
-Show the evidence report preview. Explain that future integrations can push this evidence into UiPath Test Manager, Test Cloud, Action Center, and governed coded-agent workflows.
+## Step 6: Critical Failure And Diagnosis
 
-## Step 8: UiPath Mapping
+Show the failed test details and failure diagnosis panels.
 
-Show the UiPath mapping panel. Explain that the repository includes proof artifacts for Test Manager, API Workflows, Action Center, and Coded Agents, and that real UiPath connectivity is intentionally pending future secure implementation.
+Explain that a high-value preferred vendor invoice bypassed manager approval because the preferred-vendor fast path did not reapply the USD 25,000 approval guard before routing to finance validation.
+
+## Step 7: Release Gate And Human Review
+
+Show the release decision and human review panel.
+
+Say: "The release is blocked. The next action is to fix the routing condition, rerun the deterministic release check, and route evidence to the finance governance owner before production release."
+
+## Step 8: Evidence Report
+
+Show the evidence report preview.
+
+Highlight the release check ID, final status, executive summary, requirement trace, risk assessment, coverage summary, failed test details, root cause, release gate decision, human decision, UiPath proof mapping, generated timestamp, and copy-ready markdown report.
+
+## Step 9: UiPath Mapping
+
+Show the UiPath mapping panel.
+
+Explain that the repository includes contract-only proof artifacts for Test Manager, API Workflows, Action Center, and Coded Agents. Real UiPath connectivity is intentionally pending future secure implementation.
+
+## Closing
+
+Say: "The value is not just test generation. The value is explainable release governance: what changed, what risk it created, what evidence proves the result, and who must approve the next step."
