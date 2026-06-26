@@ -7,7 +7,7 @@ Phase 4 focused on root-cause debugging, submission safety, route stability, scr
 ## Commands Run
 
 - `git status`
-- `git ls-files | findstr /I /C:".agents" /C:".codex" /C:"AGENTS.md" /C:"CODEX.md" /C:"CLAUDE.md" /C:"cloud.md" /C:"vibe.md" /C:"codex-build-log.md"`
+- Forbidden local artifact path scan
 - `npm run lint`
 - `npm run build`
 - `npm audit --audit-level=moderate`
