@@ -23,6 +23,7 @@ export function MotionReveal({
   return (
     <motion.div
       className={className}
+      data-motion-reveal="true"
       initial={{ opacity: 0, y, scale }}
       transition={{
         delay,

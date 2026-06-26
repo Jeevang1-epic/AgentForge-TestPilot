@@ -28,6 +28,10 @@ const captures = [
 
 async function openPage(page, route) {
   await page.goto(`${baseUrl}${route}`, { waitUntil: "networkidle" });
+  await page.addStyleTag({
+    content:
+      '[data-motion-reveal="true"] { opacity: 1 !important; transform: none !important; }',
+  });
 }
 
 async function settlePage(page) {
