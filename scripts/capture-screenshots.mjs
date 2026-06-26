@@ -30,12 +30,32 @@ async function openPage(page, route) {
   await page.goto(`${baseUrl}${route}`, { waitUntil: "networkidle" });
 }
 
+async function settlePage(page) {
+  await page.waitForTimeout(700);
+  await page.evaluate(async () => {
+    const delay = (duration) =>
+      new Promise((resolve) => {
+        setTimeout(resolve, duration);
+      });
+    const height = document.documentElement.scrollHeight;
+    const step = Math.max(window.innerHeight * 0.75, 500);
+
+    for (let y = 0; y < height; y += step) {
+      window.scrollTo(0, y);
+      await delay(120);
+    }
+
+    window.scrollTo(0, 0);
+  });
+  await page.waitForTimeout(500);
+}
+
 async function captureElement(page, capture) {
   await openPage(page, capture.path);
   const locator = page.locator(capture.selector).first();
   await locator.waitFor({ state: "visible", timeout: 15000 });
   await locator.scrollIntoViewIfNeeded();
-  await page.waitForTimeout(200);
+  await page.waitForTimeout(650);
   await locator.screenshot({
     path: path.join(outputDir, capture.file),
   });
@@ -48,9 +68,8 @@ async function main() {
   const page = await browser.newPage({ viewport });
 
   try {
-    await page.emulateMedia({ reducedMotion: "reduce" });
-
     await openPage(page, "/");
+    await settlePage(page);
     await page.screenshot({
       fullPage: true,
       path: path.join(outputDir, "homepage-full.png"),
@@ -60,6 +79,7 @@ async function main() {
     });
 
     await openPage(page, "/release-check");
+    await settlePage(page);
     await page.screenshot({
       fullPage: true,
       path: path.join(outputDir, "release-check-full.png"),
