@@ -32,7 +32,10 @@ const featureCards = [
 export default function Home() {
   return (
     <PremiumShell active="home">
-      <section className="flex flex-1 flex-col items-center px-2 pb-16 pt-20 text-center lg:pt-28">
+      <section
+        className="flex flex-1 flex-col items-center px-2 pb-16 pt-20 text-center lg:pt-28"
+        data-screenshot="homepage-hero"
+      >
         <MotionReveal className="flex flex-col items-center">
           <StatusPill variant="pending">
             Current status: local deterministic prototype with UiPath proof
@@ -72,66 +75,66 @@ export default function Home() {
           y={26}
         >
           <PremiumCard className="p-3 text-left" tone="low">
-          <div className="rounded-[20px] border border-[var(--border)] bg-[var(--surface-card)]">
-            <div className="flex items-center gap-2 border-b border-[#e4dbd2] px-5 py-4">
-              <span className="h-2.5 w-2.5 rounded-full bg-[#e7d7c0]" />
-              <span className="h-2.5 w-2.5 rounded-full bg-[#dcc7aa]" />
-              <span className="h-2.5 w-2.5 rounded-full bg-[#c5a880]" />
-              <span className="ml-4 text-xs font-bold uppercase tracking-[0.16em] text-[var(--muted-text)]">
-                Invoice release command center
-              </span>
-            </div>
+            <div className="rounded-[20px] border border-[var(--border)] bg-[var(--surface-card)]">
+              <div className="flex items-center gap-2 border-b border-[#e4dbd2] px-5 py-4">
+                <span className="h-2.5 w-2.5 rounded-full bg-[#e7d7c0]" />
+                <span className="h-2.5 w-2.5 rounded-full bg-[#dcc7aa]" />
+                <span className="h-2.5 w-2.5 rounded-full bg-[#c5a880]" />
+                <span className="ml-4 text-xs font-bold uppercase tracking-[0.16em] text-[var(--muted-text)]">
+                  Invoice release command center
+                </span>
+              </div>
 
-            <div className="grid gap-0 overflow-hidden rounded-b-[20px] bg-[#314746] p-6 lg:grid-cols-[1.15fr_0.85fr] lg:p-10">
-              <div className="rounded-[22px] border border-white/25 bg-white/94 p-6 premium-shadow">
-                <div className="flex items-start justify-between gap-6">
-                  <div>
-                    <p className="premium-label">Risk score</p>
-                    <p className="mt-2 text-5xl font-black tracking-[-0.06em] text-[var(--error)]">
-                      94
+              <div className="grid gap-0 overflow-hidden rounded-b-[20px] bg-[#314746] p-6 lg:grid-cols-[1.15fr_0.85fr] lg:p-10">
+                <div className="rounded-[22px] border border-white/25 bg-white/94 p-6 premium-shadow">
+                  <div className="flex items-start justify-between gap-6">
+                    <div>
+                      <p className="premium-label">Risk score</p>
+                      <p className="mt-2 text-5xl font-black tracking-[-0.06em] text-[var(--error)]">
+                        94
+                      </p>
+                    </div>
+                    <StatusPill variant="blocked">Blocked</StatusPill>
+                  </div>
+                  <div className="mt-8 flex h-44 items-end gap-2 border-b border-l border-[#ded5ca] px-3 pb-4">
+                    {previewBars.map((bar, index) => (
+                      <div
+                        className="w-full rounded-t-md bg-[var(--primary-soft)]"
+                        key={bar + index}
+                        style={{ height: `${bar}%` }}
+                      />
+                    ))}
+                  </div>
+                  <div className="mt-5 grid gap-3 text-sm text-[var(--secondary-text)] sm:grid-cols-3">
+                    <span>5 tests generated</span>
+                    <span>4 passed</span>
+                    <span>1 critical failed</span>
+                  </div>
+                </div>
+
+                <div className="grid gap-4 bg-white/10 p-0 lg:p-6">
+                  <div className="rounded-[22px] border border-white/20 bg-white/92 p-5">
+                    <p className="premium-label">Critical finding</p>
+                    <p className="mt-3 text-2xl font-black tracking-[-0.04em] text-[var(--text)]">
+                      High-value invoice bypassed manager approval.
+                    </p>
+                    <p className="mt-3 text-sm leading-6 text-[var(--secondary-text)]">
+                      The release gate blocks deployment and prepares evidence
+                      for human review.
                     </p>
                   </div>
-                  <StatusPill variant="blocked">Blocked</StatusPill>
-                </div>
-                <div className="mt-8 flex h-44 items-end gap-2 border-b border-l border-[#ded5ca] px-3 pb-4">
-                  {previewBars.map((bar, index) => (
-                    <div
-                      className="w-full rounded-t-md bg-[var(--primary-soft)]"
-                      key={bar + index}
-                      style={{ height: `${bar}%` }}
-                    />
-                  ))}
-                </div>
-                <div className="mt-5 grid gap-3 text-sm text-[var(--secondary-text)] sm:grid-cols-3">
-                  <span>5 tests generated</span>
-                  <span>4 passed</span>
-                  <span>1 critical failed</span>
-                </div>
-              </div>
-
-              <div className="grid gap-4 bg-white/10 p-0 lg:p-6">
-                <div className="rounded-[22px] border border-white/20 bg-white/92 p-5">
-                  <p className="premium-label">Critical finding</p>
-                  <p className="mt-3 text-2xl font-black tracking-[-0.04em] text-[var(--text)]">
-                    High-value invoice bypassed manager approval.
-                  </p>
-                  <p className="mt-3 text-sm leading-6 text-[var(--secondary-text)]">
-                    The release gate blocks deployment and prepares evidence
-                    for human review.
-                  </p>
-                </div>
-                <div className="rounded-[22px] border border-white/20 bg-white/92 p-5">
-                  <p className="premium-label">Evidence readiness</p>
-                  <div className="mt-4 h-3 overflow-hidden rounded-full bg-[#e7ded4]">
-                    <div className="h-full w-[98%] rounded-full bg-[var(--primary-container)]" />
+                  <div className="rounded-[22px] border border-white/20 bg-white/92 p-5">
+                    <p className="premium-label">Evidence readiness</p>
+                    <div className="mt-4 h-3 overflow-hidden rounded-full bg-[#e7ded4]">
+                      <div className="h-full w-[98%] rounded-full bg-[var(--primary-container)]" />
+                    </div>
+                    <p className="mt-3 text-sm font-semibold text-[var(--secondary-text)]">
+                      Report preview and traceability are ready for review.
+                    </p>
                   </div>
-                  <p className="mt-3 text-sm font-semibold text-[var(--secondary-text)]">
-                    Report preview and traceability are ready for review.
-                  </p>
                 </div>
               </div>
             </div>
-          </div>
           </PremiumCard>
         </MotionReveal>
       </section>

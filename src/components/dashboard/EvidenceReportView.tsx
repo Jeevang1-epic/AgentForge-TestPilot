@@ -8,7 +8,11 @@ interface EvidenceReportViewProps {
 
 export function EvidenceReportView({ report }: EvidenceReportViewProps) {
   return (
-    <PremiumCard>
+    <PremiumCard
+      className="scroll-mt-28"
+      data-screenshot="evidence-report-preview"
+      id="evidence-report"
+    >
       <p className="premium-label">Evidence report preview</p>
       <div className="mt-3 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
         <div>

@@ -61,17 +61,27 @@ export default function ReleaseCheckPage() {
             </p>
           </div>
           <div className="flex flex-wrap gap-3">
-            <button className="rounded-full border border-[var(--border)] bg-white/70 px-6 py-3 text-sm font-black uppercase tracking-[0.12em] text-[var(--secondary-text)]">
+            <a
+              className="rounded-full border border-[var(--border)] bg-white/70 px-6 py-3 text-sm font-black uppercase tracking-[0.12em] text-[var(--secondary-text)]"
+              href="#evidence-report"
+            >
               View Evidence
-            </button>
-            <button className="rounded-full bg-[var(--error)] px-6 py-3 text-sm font-black uppercase tracking-[0.12em] text-white">
+            </a>
+            <a
+              className="rounded-full bg-[var(--error)] px-6 py-3 text-sm font-black uppercase tracking-[0.12em] text-white"
+              href="#human-review"
+            >
               Review Release
-            </button>
+            </a>
           </div>
         </MotionReveal>
 
         <MotionReveal delay={0.08} scale={0.985} y={26}>
-          <PremiumCard className="mt-12 p-8 lg:p-12" tone="danger">
+          <PremiumCard
+            className="mt-12 p-8 lg:p-12"
+            data-screenshot="release-critical-failure"
+            tone="danger"
+          >
             <div className="grid gap-8 lg:grid-cols-[auto_1fr]">
               <div className="flex h-16 w-16 items-center justify-center rounded-full border border-[#efb5ad] bg-[var(--error-soft)] text-3xl font-black text-[var(--error)]">
                 !
@@ -293,7 +303,10 @@ ${releaseCheck.failureDiagnosis.rootCause}`}</code>
           </MotionReveal>
         </section>
 
-        <section className="mt-8 grid gap-6 xl:grid-cols-[0.8fr_1.2fr]">
+        <section
+          className="mt-8 grid gap-6 xl:grid-cols-[0.8fr_1.2fr]"
+          id="human-review"
+        >
           <MotionReveal y={24}>
             <HumanReviewPanel decision={releaseCheck.humanReviewDecision} />
           </MotionReveal>

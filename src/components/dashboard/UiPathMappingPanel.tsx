@@ -26,12 +26,14 @@ const mappingItems = [
 
 export function UiPathMappingPanel() {
   return (
-    <PremiumCard>
+    <PremiumCard
+      className="scroll-mt-28"
+      data-screenshot="uipath-proof-layer"
+      id="uipath-proof-layer"
+    >
       <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
         <div>
-          <p className="premium-label">
-            UiPath mapping
-          </p>
+          <p className="premium-label">UiPath mapping</p>
           <h2 className="mt-3 text-3xl font-black tracking-[-0.05em] text-[var(--text)]">
             Proof layer ready for future integration
           </h2>
@@ -42,9 +44,7 @@ export function UiPathMappingPanel() {
             integration points.
           </p>
         </div>
-        <StatusPill variant="pending">
-          Real connection pending
-        </StatusPill>
+        <StatusPill variant="pending">Real connection pending</StatusPill>
       </div>
 
       <div className="mt-5 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
