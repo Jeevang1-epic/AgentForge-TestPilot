@@ -149,18 +149,60 @@ export interface EvidenceReportSection {
   findings: string[];
 }
 
+export interface EvidenceReportTraceItem {
+  requirementId: string;
+  requirement: string;
+  workflowStep: string;
+  coveredBy: string[];
+}
+
+export interface EvidenceReportCoverageSummary {
+  totalTests: number;
+  passedTests: number;
+  failedTests: number;
+  criticalFailures: number;
+  coverageAreas: string[];
+}
+
+export interface EvidenceReportFailedTest {
+  testCaseId: string;
+  title: string;
+  status: TestStatus;
+  critical: boolean;
+  actualResult: string;
+  errorSummary: string;
+  evidence: string;
+  artifactRefs: string[];
+}
+
+export interface EvidenceReportUiPathMapping {
+  surface: string;
+  purpose: string;
+  artifactPath: string;
+}
+
 export interface EvidenceReport {
   id: string;
   releaseCheckId: string;
   title: string;
   generatedAt: string;
   generatedBy: string;
+  finalStatus: ReleaseDecisionStatus;
   releaseDecision: ReleaseDecisionStatus;
+  humanDecision: ReleaseDecisionStatus;
   summary: string;
   executiveSummary: string;
+  requirementTrace: EvidenceReportTraceItem[];
+  riskAssessmentSummary: string[];
+  coverageSummary: EvidenceReportCoverageSummary;
+  failedTestDetails: EvidenceReportFailedTest[];
+  rootCause: string;
+  releaseGateDecision: string;
+  uiPathProofMapping: EvidenceReportUiPathMapping[];
   metrics: EvidenceReportMetric[];
   sections: EvidenceReportSection[];
   auditTrail: string[];
+  markdown: string;
 }
 
 export interface AgentTimelineStep {
