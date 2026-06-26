@@ -33,6 +33,9 @@
 
 ## Demo Requirements
 
+- Live demo URL is documented as `https://agentforge-testpilot.vercel.app`.
+- GitHub repository URL is documented as `https://github.com/Jeevang1-epic/AgentForge-TestPilot`.
+- Main demo route is documented as `/release-check`.
 - Change request is visible.
 - Agent timeline is visible.
 - Judge Demo Flow panel is visible.
@@ -50,6 +53,7 @@
 - UiPath mapping section is visible.
 - Submission screenshots are available under `public/screenshots/`.
 - Required full-page, viewport, critical failure, evidence report, and UiPath proof layer screenshots are present.
+- Screenshot assets are accessible from `/screenshots/...`.
 
 ## Documentation
 
@@ -69,6 +73,10 @@
 - `npm run dev` served the application.
 - `http://localhost:3000` was checked.
 - `http://localhost:3000/release-check` was checked.
+- `https://agentforge-testpilot.vercel.app` returned `200 OK`.
+- `https://agentforge-testpilot.vercel.app/release-check` returned `200 OK`.
+- A live screenshot asset under `/screenshots/` returned `200 OK`.
+- Live browser checks passed with no blank page, no visible hydration error, no horizontal overflow, no forbidden artifact links, and no fake real UiPath connection claim.
 - Forbidden artifact scan passed.
 
 ## Git

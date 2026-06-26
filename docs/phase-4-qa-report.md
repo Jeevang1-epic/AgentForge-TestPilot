@@ -60,4 +60,11 @@ The screenshot system was stabilized to wait for loaded pages, disable capture-t
 
 ## Next Phase
 
-The next phase is deployment and final submission packaging, including final hosting verification, README review, demo recording, and submission asset assembly.
+Phase 5 deployment has been completed for the demo snapshot:
+
+- Live demo: https://agentforge-testpilot.vercel.app
+- GitHub repository: https://github.com/Jeevang1-epic/AgentForge-TestPilot
+- Main demo route: `/release-check`
+- Screenshot assets path: `public/screenshots/`
+
+Final submission packaging can use the deployed URL, repository URL, and verified screenshot assets.

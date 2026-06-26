@@ -8,6 +8,13 @@ One-line pitch: catch release-breaking automation defects before production, exp
 
 UiPath AgentHack Track 3: UiPath Test Cloud.
 
+## Live Deployment
+
+- Live demo: https://agentforge-testpilot.vercel.app
+- GitHub repository: https://github.com/Jeevang1-epic/AgentForge-TestPilot
+- Main demo route: `/release-check`
+- Screenshot assets: `public/screenshots/`
+
 ## Problem
 
 Invoice approval automations carry financial control risk. A small threshold-routing change can let high-value invoices skip manager approval, send exception cases to the wrong queue, or leave audit evidence incomplete. Teams need a clear release decision that connects the requirement, risk, test evidence, failure cause, and human review path.
@@ -78,7 +85,7 @@ Open:
 
 ## Current Status
 
-Milestone 4 is a judge-ready local deterministic prototype with a polished release-check dashboard, improved evidence reporting, submission walkthrough docs, and a portfolio-safe UiPath proof layer. It uses Next.js, TypeScript, Tailwind CSS, App Router, local demo data, pure TypeScript release-check modules, and no external service calls.
+Phase 5 is a live deterministic demo with a polished release-check dashboard, improved evidence reporting, submission walkthrough docs, and a portfolio-safe UiPath proof layer. It uses Next.js, TypeScript, Tailwind CSS, App Router, local demo data, pure TypeScript release-check modules, and no external service calls.
 
 The application does not connect to real UiPath APIs yet. The `uipath/` folder contains sample requirements, test cases, execution results, traceability, workflow contracts, Action Center schema, and Coded Agent contracts for future implementation planning. It does not include authentication, database storage, payments, external APIs, secrets, or production credentials.
 
