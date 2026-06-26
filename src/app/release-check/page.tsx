@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { AgentTimeline } from "@/components/dashboard/AgentTimeline";
 import { EvidenceReportView } from "@/components/dashboard/EvidenceReportView";
 import { ExecutionResults } from "@/components/dashboard/ExecutionResults";
@@ -39,6 +40,14 @@ export default function ReleaseCheckPage() {
   return (
     <PremiumShell active="governance">
       <section className="px-2 pb-20 pt-16">
+        <Link
+          className="mb-8 inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-white/75 px-4 py-2 text-xs font-black uppercase tracking-[0.12em] text-[var(--secondary-text)] transition hover:border-[var(--primary)] hover:text-[var(--primary)]"
+          href="/"
+        >
+          <span aria-hidden="true">&larr;</span>
+          Back to Home
+        </Link>
+
         <MotionReveal className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
           <div>
             <div className="flex flex-wrap items-center gap-3">
