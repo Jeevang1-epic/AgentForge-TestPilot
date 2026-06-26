@@ -10,6 +10,14 @@ import { TestPlanTable } from "@/components/dashboard/TestPlanTable";
 import { UiPathMappingPanel } from "@/components/dashboard/UiPathMappingPanel";
 import { runReleaseCheckPipeline } from "@/lib/orchestrator/releaseCheckOrchestrator";
 
+const judgeDemoFlow = [
+  "Requirement change enters.",
+  "Agents analyze risk and generate tests.",
+  "Execution detects a critical failure.",
+  "Release is blocked for human review.",
+  "Evidence report records the decision.",
+];
+
 export default function ReleaseCheckPage() {
   const releaseCheck = runReleaseCheckPipeline();
   const failedResult = releaseCheck.executionResults.find(
@@ -20,36 +28,83 @@ export default function ReleaseCheckPage() {
   ).length;
 
   return (
-    <main className="min-h-screen px-4 py-6 text-zinc-950 md:px-8">
+    <main className="min-h-screen bg-zinc-50 px-4 py-6 text-zinc-950 md:px-8">
       <section className="mx-auto max-w-7xl">
-        <header className="flex flex-col gap-5 border-b border-zinc-200 pb-6 lg:flex-row lg:items-end lg:justify-between">
-          <div>
+        <header className="grid gap-6 border-b border-zinc-200 pb-6 lg:grid-cols-[1.15fr_0.85fr]">
+          <div className="rounded-lg border border-zinc-200 bg-white p-6 shadow-sm">
             <Link
               className="text-sm font-semibold text-emerald-800 hover:text-emerald-950"
               href="/"
             >
               AgentForge TestPilot
             </Link>
+            <p className="mt-5 text-sm font-semibold uppercase tracking-[0.16em] text-emerald-700">
+              Project thesis
+            </p>
             <h1 className="mt-3 text-4xl font-semibold tracking-tight md:text-5xl">
-              Invoice approval release command center
+              AI release gate for UiPath automations
             </h1>
             <p className="mt-4 max-w-3xl text-base leading-7 text-zinc-700">
-              {releaseCheck.metadata.runName} for{" "}
-              {releaseCheck.metadata.scenario}.
+              A deterministic release-check dashboard that turns an invoice
+              approval change request into requirements, risk scoring, test
+              coverage, execution evidence, failure diagnosis, and a governed
+              release decision.
             </p>
-            <p className="mt-2 text-sm font-medium text-zinc-500">
-              {releaseCheck.metadata.releaseCandidateId} -{" "}
+            <div className="mt-5 grid gap-3 md:grid-cols-2">
+              <div className="rounded-md border border-zinc-200 bg-zinc-50 p-4">
+                <p className="text-sm font-semibold text-zinc-500">
+                  Demo scenario
+                </p>
+                <p className="mt-2 font-semibold text-zinc-950">
+                  Invoice approval threshold routing
+                </p>
+              </div>
+              <div className="rounded-md border border-zinc-200 bg-zinc-50 p-4">
+                <p className="text-sm font-semibold text-zinc-500">
+                  Release candidate
+                </p>
+                <p className="mt-2 font-semibold text-zinc-950">
+                  {releaseCheck.metadata.releaseCandidateId}
+                </p>
+              </div>
+            </div>
+            <p className="mt-4 text-sm font-medium text-zinc-500">
               {releaseCheck.metadata.pipelineVersion} -{" "}
               {releaseCheck.metadata.dataSource}
             </p>
           </div>
-          <div className="rounded-lg border border-rose-200 bg-rose-50 px-5 py-4 text-rose-900">
-            <p className="text-xs font-semibold uppercase tracking-[0.16em]">
-              Release decision
+
+          <div className="rounded-lg border border-zinc-200 bg-zinc-950 p-6 text-white shadow-sm">
+            <p className="text-sm font-semibold uppercase tracking-[0.16em] text-emerald-300">
+              Judge Demo Flow
             </p>
-            <p className="mt-2 text-2xl font-semibold">
-              {releaseCheck.humanReviewDecision.decision}
-            </p>
+            <h2 className="mt-3 text-2xl font-semibold">
+              Understand the full release story in under 60 seconds.
+            </h2>
+            <ol className="mt-5 grid gap-3">
+              {judgeDemoFlow.map((step, index) => (
+                <li
+                  className="flex gap-3 rounded-md border border-white/10 bg-white/5 p-3 text-sm leading-6 text-zinc-200"
+                  key={step}
+                >
+                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-emerald-400 text-xs font-semibold text-zinc-950">
+                    {index + 1}
+                  </span>
+                  {step}
+                </li>
+              ))}
+            </ol>
+            <div className="mt-5 rounded-md border border-rose-300/40 bg-rose-400/10 p-4">
+              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-rose-200">
+                Release gate decision
+              </p>
+              <p className="mt-2 text-2xl font-semibold">
+                {releaseCheck.humanReviewDecision.decision}
+              </p>
+              <p className="mt-2 text-sm leading-6 text-rose-100">
+                {releaseCheck.humanReviewDecision.nextAction}
+              </p>
+            </div>
           </div>
         </header>
 
@@ -134,6 +189,16 @@ export default function ReleaseCheckPage() {
               <p className="mt-4 leading-7 text-zinc-700">
                 {releaseCheck.changeRequest.summary}
               </p>
+              <div className="mt-5 rounded-md border border-amber-200 bg-amber-50 p-4">
+                <p className="text-sm font-semibold text-amber-900">
+                  What changed
+                </p>
+                <p className="mt-2 leading-6 text-amber-950">
+                  Preferred vendor invoices under USD 25,000 can fast-path to
+                  finance validation, but invoices at or above USD 25,000 must
+                  still route to manager approval.
+                </p>
+              </div>
             </div>
             <div className="grid gap-3 sm:grid-cols-2">
               <div className="rounded-md bg-zinc-50 p-4">
