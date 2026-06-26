@@ -48,6 +48,8 @@
 - Release decision is visible.
 - Evidence report preview is visible.
 - UiPath mapping section is visible.
+- Submission screenshots are available under `public/screenshots/`.
+- Required full-page, viewport, critical failure, evidence report, and UiPath proof layer screenshots are present.
 
 ## Documentation
 
@@ -55,6 +57,7 @@
 - `docs/demo-script.md` supports a live walkthrough.
 - `docs/demo-recording-plan.md` supports a 5-minute recording.
 - `docs/judge-walkthrough.md` explains problem, solution, architecture, UiPath mapping, demo flow, limitations, and future integration path.
+- `public/screenshots/` includes reference images for review and submission packaging.
 - Public docs stay professional and do not include local development artifacts.
 
 ## Verification

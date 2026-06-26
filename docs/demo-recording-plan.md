@@ -32,6 +32,16 @@ Record a clear 5-minute hackathon video that shows AgentForge TestPilot as a jud
 11. Evidence report preview and copy-ready markdown.
 12. UiPath mapping panel.
 
+## Screenshot References
+
+- `public/screenshots/homepage-full.png`
+- `public/screenshots/homepage-viewport.png`
+- `public/screenshots/release-check-full.png`
+- `public/screenshots/release-check-viewport.png`
+- `public/screenshots/release-critical-failure.png`
+- `public/screenshots/evidence-report-preview.png`
+- `public/screenshots/uipath-proof-layer.png`
+
 ## Recording Notes
 
 - Keep the browser zoom at 90 or 100 percent.
