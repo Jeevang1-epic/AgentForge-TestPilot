@@ -1,12 +1,32 @@
 # AgentForge TestPilot
 
-AgentForge TestPilot is an agentic QA and release-governance dashboard for enterprise automations. The current demo focuses on an invoice approval automation release check where a routing change is analyzed, risk is scored, test coverage is planned, execution results are reviewed, a critical failure is diagnosed, a release gate decision is produced, and a UiPath proof layer shows how future integration can be structured.
+AgentForge TestPilot is an AI release gate for UiPath automations. It helps automation teams decide whether a workflow release is safe by turning a change request into requirements, risk scoring, test coverage, execution evidence, failure diagnosis, human review, and a structured evidence report.
+
+One-line pitch: catch release-breaking automation defects before production, explain why they matter, and record the evidence needed for review.
 
 ## Hackathon Track
 
 UiPath AgentHack Track 3: UiPath Test Cloud.
 
-## MVP Flow
+## Problem
+
+Invoice approval automations carry financial control risk. A small threshold-routing change can let high-value invoices skip manager approval, send exception cases to the wrong queue, or leave audit evidence incomplete. Teams need a clear release decision that connects the requirement, risk, test evidence, failure cause, and human review path.
+
+## Solution
+
+AgentForge TestPilot provides a deterministic release-check dashboard for an invoice approval automation. The current prototype shows how a UiPath automation release could be evaluated before production with:
+
+- Requirement analysis.
+- Risk scoring and risk factors.
+- Release-gate test planning.
+- Execution result review.
+- Critical failure diagnosis.
+- Blocked release decision.
+- Human review queue.
+- Evidence report preview.
+- UiPath proof mapping.
+
+## Live Demo Flow
 
 1. Review an invoice approval automation change request.
 2. Extract deterministic business rules, acceptance criteria, workflow steps, assumptions, and missing information.
@@ -17,24 +37,19 @@ UiPath AgentHack Track 3: UiPath Test Cloud.
 7. Produce a blocked release decision and evidence report preview.
 8. Review the UiPath mapping proof for Test Manager, API Workflows, Action Center, and Coded Agents.
 
-## Local Run Commands
+## Architecture Overview
 
-```bash
-npm install
-npm run build
-npm run dev
-```
+The app is a Next.js App Router project using TypeScript and Tailwind CSS. The release-check pipeline is built from local deterministic modules:
 
-Open:
+- Requirement Analyst extracts business rules and missing information.
+- Risk Mapper scores business and compliance risk.
+- Test Planner generates invoice approval release-gate tests.
+- Execution Analyst reviews deterministic test outcomes.
+- Failure Investigator explains the critical failed test.
+- Release Gate returns the release decision and human review path.
+- Evidence Reporter produces the structured report preview.
 
-- `http://localhost:3000`
-- `http://localhost:3000/release-check`
-
-## Current Status
-
-Milestone 3 is a local deterministic prototype with a stronger typed release-check pipeline, a complete command-center dashboard, and a portfolio-safe UiPath proof layer. It uses Next.js, TypeScript, Tailwind CSS, App Router, local demo data, pure TypeScript agent functions, and no external service calls.
-
-The application does not connect to real UiPath APIs yet. The `uipath/` folder contains sample requirements, test cases, execution results, traceability, workflow contracts, Action Center schema, and Coded Agent contracts for future implementation planning. It does not include authentication, database storage, payments, external APIs, secrets, or production credentials.
+No external services are required to run the demo.
 
 ## UiPath Proof Layer
 
@@ -47,15 +62,27 @@ The proof layer maps the local deterministic dashboard to future UiPath surfaces
 
 Current state is contract-only and sample-data-only. Real UiPath connection is pending future secure configuration and implementation.
 
-## Future UiPath Integration Plan
+## Local Run Commands
 
-- UiPath Test Cloud: replace deterministic execution data with release test runs and quality signals.
-- UiPath Test Manager: sync generated test cases, requirements, execution evidence, and defect links.
-- UiPath API Workflows: trigger controlled automation checks and retrieve run artifacts.
-- UiPath Action Center: route blocked or high-risk releases to a human reviewer.
-- UiPath Coded Agents: migrate deterministic agents into governed coded-agent steps.
+```bash
+npm install
+npm run lint
+npm run build
+npm run dev
+```
 
-## Repository Map
+Open:
+
+- `http://localhost:3000`
+- `http://localhost:3000/release-check`
+
+## Current Status
+
+Milestone 4 is a judge-ready local deterministic prototype with a polished release-check dashboard, improved evidence reporting, submission walkthrough docs, and a portfolio-safe UiPath proof layer. It uses Next.js, TypeScript, Tailwind CSS, App Router, local demo data, pure TypeScript release-check modules, and no external service calls.
+
+The application does not connect to real UiPath APIs yet. The `uipath/` folder contains sample requirements, test cases, execution results, traceability, workflow contracts, Action Center schema, and Coded Agent contracts for future implementation planning. It does not include authentication, database storage, payments, external APIs, secrets, or production credentials.
+
+## Repository Structure
 
 - `src/app/page.tsx`: landing page.
 - `src/app/release-check/page.tsx`: release governance dashboard.
@@ -64,4 +91,21 @@ Current state is contract-only and sample-data-only. Real UiPath connection is p
 - `src/lib/data`: local invoice approval demo data.
 - `src/components/dashboard`: dashboard presentation components.
 - `uipath`: UiPath proof layer contracts and sample artifacts.
-- `docs`: milestone vision, research mapping, architecture, demo script, and checklist.
+- `docs`: architecture notes, demo script, recording plan, judge walkthrough, and submission checklist.
+
+## Limitations
+
+- The release-check data is deterministic demo data.
+- Test execution results are simulated for the invoice approval scenario.
+- Real UiPath API connectivity is not implemented yet.
+- Evidence reporting is shown in the dashboard and markdown preview; PDF generation is out of scope.
+- Authentication, database storage, payments, external APIs, secrets, and production credential management are intentionally not included.
+
+## Future Roadmap
+
+- Connect Test Manager requirements, generated tests, execution evidence, and traceability.
+- Replace deterministic execution data with UiPath Test Cloud results.
+- Use API Workflows for release-check retrieval, test-result submission, and evidence-report generation.
+- Route blocked releases to Action Center for finance governance review.
+- Move deterministic release-check steps into governed Coded Agent contracts where appropriate.
+- Add secure enterprise configuration, audit retention, and deployment controls.
