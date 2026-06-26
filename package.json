@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "lint": "eslint",
-    "screenshots": "node scripts/capture-screenshots.mjs"
+    "screenshots": "node scripts/capture-screenshots.mjs",
+    "repo:audit": "node scripts/repo-audit.mjs"
   },
   "dependencies": {
     "motion": "^12.42.0",
