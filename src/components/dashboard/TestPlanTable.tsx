@@ -14,7 +14,7 @@ export function TestPlanTable({ testCases }: TestPlanTableProps) {
       <h2 className="mt-3 text-3xl font-black tracking-[-0.05em] text-[var(--text)]">
         Release-gate coverage table
       </h2>
-      <div className="mt-5 overflow-x-auto">
+      <div className="mt-5 min-w-0 overflow-x-auto">
         <table className="w-full min-w-[980px] border-collapse text-left text-sm">
           <thead>
             <tr className="border-b border-[#e3d8cc] text-xs uppercase tracking-[0.12em] text-[var(--muted-text)]">

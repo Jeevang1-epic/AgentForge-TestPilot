@@ -50,14 +50,14 @@ export function UiPathMappingPanel() {
       <div className="mt-5 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
         {mappingItems.map((item) => (
           <div
-            className="rounded-2xl border border-[#e3d8cc] bg-[var(--surface-low)] p-4"
+            className="min-w-0 rounded-2xl border border-[#e3d8cc] bg-[var(--surface-low)] p-4"
             key={item.label}
           >
             <p className="font-black text-[var(--text)]">{item.label}</p>
             <p className="mt-2 text-sm leading-6 text-[var(--secondary-text)]">
               {item.detail}
             </p>
-            <p className="mt-3 text-xs font-black uppercase tracking-[0.12em] text-[var(--primary)]">
+            <p className="mt-3 break-words text-xs font-black uppercase tracking-[0.12em] text-[var(--primary)]">
               {item.artifact}
             </p>
           </div>

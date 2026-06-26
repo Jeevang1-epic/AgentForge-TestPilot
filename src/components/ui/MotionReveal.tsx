@@ -22,7 +22,7 @@ export function MotionReveal({
 
   return (
     <motion.div
-      className={className}
+      className={["min-w-0", className].filter(Boolean).join(" ")}
       data-motion-reveal="true"
       initial={{ opacity: 0, y, scale }}
       transition={{

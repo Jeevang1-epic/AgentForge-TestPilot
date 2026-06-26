@@ -16,7 +16,7 @@ const navItems = [
 
 export function PremiumShell({ active = "home", children }: PremiumShellProps) {
   return (
-    <main className="relative min-h-screen overflow-hidden bg-[var(--background)] text-[var(--text)]">
+    <main className="relative min-h-screen overflow-x-clip bg-[var(--background)] text-[var(--text)]">
       <PremiumCursorGlow />
       <div className="premium-noise pointer-events-none absolute inset-0 z-0 opacity-80" />
       <div className="relative z-10 mx-auto flex min-h-screen w-full max-w-[1500px] flex-col px-4 py-5 sm:px-6 lg:px-10">

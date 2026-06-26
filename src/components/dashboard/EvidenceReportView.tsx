@@ -10,7 +10,7 @@ export function EvidenceReportView({ report }: EvidenceReportViewProps) {
   return (
     <PremiumCard
       aria-label="Evidence report preview, scrollable"
-      className="max-h-[980px] scroll-mt-28 overflow-y-auto pr-3 focus:outline-none focus:ring-2 focus:ring-[var(--primary-container)]"
+      className="max-h-[980px] scroll-mt-28 overflow-x-auto overflow-y-auto pr-3 focus:outline-none focus:ring-2 focus:ring-[var(--primary-container)]"
       data-screenshot="evidence-report-preview"
       id="evidence-report"
       tabIndex={0}
@@ -96,7 +96,7 @@ export function EvidenceReportView({ report }: EvidenceReportViewProps) {
               <p className="mt-2 leading-6 text-[var(--secondary-text)]">
                 {item.requirement}
               </p>
-              <p className="mt-2 text-xs font-black uppercase tracking-[0.12em] text-[var(--primary)]">
+              <p className="mt-2 break-words text-xs font-black uppercase tracking-[0.12em] text-[var(--primary)]">
                 Covered by {item.coveredBy.join(", ")}
               </p>
             </div>
@@ -175,7 +175,7 @@ export function EvidenceReportView({ report }: EvidenceReportViewProps) {
               <p className="mt-2 text-sm leading-6 text-[var(--secondary-text)]">
                 {test.actualResult}
               </p>
-              <p className="mt-2 text-xs font-black uppercase tracking-[0.12em] text-[var(--error)]">
+              <p className="mt-2 break-words text-xs font-black uppercase tracking-[0.12em] text-[var(--error)]">
                 {test.artifactRefs.join(", ")}
               </p>
             </div>
@@ -204,7 +204,7 @@ export function EvidenceReportView({ report }: EvidenceReportViewProps) {
                 <p className="mt-2 text-sm leading-6 text-[var(--secondary-text)]">
                   {mapping.purpose}
                 </p>
-                <p className="mt-2 text-xs font-black uppercase tracking-[0.12em] text-[var(--primary)]">
+                <p className="mt-2 break-words text-xs font-black uppercase tracking-[0.12em] text-[var(--primary)]">
                   {mapping.artifactPath}
                 </p>
               </div>

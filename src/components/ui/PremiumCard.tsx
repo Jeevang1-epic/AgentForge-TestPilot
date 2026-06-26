@@ -25,7 +25,7 @@ export function PremiumCard({
   return (
     <div
       {...props}
-      className={`rounded-[24px] border p-6 premium-soft-shadow ${toneClassNames[tone]} ${
+      className={`min-w-0 rounded-[24px] border p-6 premium-soft-shadow ${toneClassNames[tone]} ${
         hover ? "transition duration-200 hover:-translate-y-1" : ""
       } ${className}`}
     >
