@@ -3,15 +3,15 @@ import type { ReactNode } from "react";
 import { PremiumCursorGlow } from "@/components/ui/PremiumCursorGlow";
 
 interface PremiumShellProps {
-  active?: "home" | "dashboard" | "governance" | "docs";
+  active?: "home" | "dashboard" | "governance" | "releases" | "analytics";
   children: ReactNode;
 }
 
 const navItems = [
-  { href: "/", key: "home", label: "Home" },
   { href: "/release-check", key: "dashboard", label: "Dashboard" },
   { href: "/release-check", key: "governance", label: "Governance" },
-  { href: "/#documentation", key: "docs", label: "Documentation" },
+  { href: "/release-check", key: "releases", label: "Releases" },
+  { href: "/#documentation", key: "analytics", label: "Analytics" },
 ] as const;
 
 export function PremiumShell({ active = "home", children }: PremiumShellProps) {
@@ -50,6 +50,9 @@ export function PremiumShell({ active = "home", children }: PremiumShellProps) {
           >
             Create Release
           </Link>
+          <span className="hidden h-9 w-9 items-center justify-center rounded-full border border-[var(--border)] bg-[var(--surface-low)] text-xs font-black text-[var(--primary)] sm:inline-flex">
+            QA
+          </span>
         </nav>
         {children}
       </div>

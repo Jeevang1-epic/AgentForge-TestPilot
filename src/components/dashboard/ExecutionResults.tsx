@@ -1,19 +1,21 @@
 import type { TestExecutionResult } from "@/lib/types/releaseCheck";
+import { PremiumCard } from "@/components/ui/PremiumCard";
+import { StatusPill } from "@/components/ui/StatusPill";
 
 interface ExecutionResultsProps {
   results: TestExecutionResult[];
 }
 
-function badgeClassName(status: TestExecutionResult["status"]) {
+function statusVariant(status: TestExecutionResult["status"]) {
   if (status === "FAILED") {
-    return "border-rose-200 bg-rose-50 text-rose-700";
+    return "blocked";
   }
 
   if (status === "SKIPPED") {
-    return "border-zinc-200 bg-zinc-50 text-zinc-600";
+    return "pending";
   }
 
-  return "border-emerald-200 bg-emerald-50 text-emerald-700";
+  return "passed";
 }
 
 export function ExecutionResults({ results }: ExecutionResultsProps) {
@@ -26,67 +28,69 @@ export function ExecutionResults({ results }: ExecutionResultsProps) {
   ).length;
 
   return (
-    <div className="rounded-lg border border-zinc-200 bg-white p-6 shadow-sm">
-      <p className="text-sm font-semibold uppercase tracking-[0.16em] text-emerald-700">
+    <PremiumCard>
+      <p className="premium-label">
         Execution results
       </p>
       <div className="mt-3 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-        <h2 className="text-2xl font-semibold">Deterministic test run</h2>
-        <div className="flex gap-2 text-sm font-semibold">
-          <span className="rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-emerald-700">
+        <h2 className="text-3xl font-black tracking-[-0.05em] text-[var(--text)]">
+          Deterministic test run
+        </h2>
+        <div className="flex flex-wrap gap-2 text-sm font-black">
+          <StatusPill variant="passed">
             {passedCount} passed
-          </span>
-          <span className="rounded-full border border-rose-200 bg-rose-50 px-3 py-1 text-rose-700">
+          </StatusPill>
+          <StatusPill variant="blocked">
             {failedCount} failed
-          </span>
-          <span className="rounded-full border border-rose-300 bg-white px-3 py-1 text-rose-800">
+          </StatusPill>
+          <StatusPill variant="blocked">
             {criticalFailureCount} critical
-          </span>
+          </StatusPill>
         </div>
       </div>
       <div className="mt-5 grid gap-3">
         {results.map((result) => (
           <div
-            className={`rounded-md border p-4 ${
+            className={`rounded-2xl border p-4 ${
               result.critical
-                ? "border-rose-200 bg-rose-50"
-                : "border-zinc-200 bg-zinc-50"
+                ? "border-[#efb5ad] bg-[#fff7f5]"
+                : "border-[#e3d8cc] bg-[var(--surface-low)]"
             }`}
             key={result.testCaseId}
           >
             <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
               <div>
-                <p className="font-semibold text-zinc-950">
+                <p className="font-black text-[var(--text)]">
                   {result.testCaseId}: {result.testCaseTitle}
                 </p>
-                <p className="mt-1 text-sm text-zinc-500">
+                <p className="mt-1 text-sm font-semibold text-[var(--muted-text)]">
                   {result.durationSeconds}s at {result.executedAt}
                 </p>
               </div>
-              <span
-                className={`inline-flex w-fit rounded-full border px-2.5 py-1 text-xs font-semibold ${badgeClassName(
-                  result.status,
-                )}`}
-              >
+              <StatusPill variant={statusVariant(result.status)}>
                 {result.status}
-              </span>
+              </StatusPill>
             </div>
-            <p className="mt-3 text-sm leading-6 text-zinc-700">
+            <p className="mt-3 text-sm leading-6 text-[var(--secondary-text)]">
               {result.evidence}
             </p>
             <dl className="mt-3 grid gap-3 text-sm sm:grid-cols-2">
               <div>
-                <dt className="font-semibold text-zinc-500">Actual result</dt>
-                <dd className="mt-1 leading-6 text-zinc-800">
+                <dt className="font-black text-[var(--muted-text)]">
+                  Actual result
+                </dt>
+                <dd className="mt-1 leading-6 text-[var(--secondary-text)]">
                   {result.actualResult}
                 </dd>
               </div>
               <div>
-                <dt className="font-semibold text-zinc-500">Evidence refs</dt>
+                <dt className="font-black text-[var(--muted-text)]">
+                  Evidence refs
+                </dt>
                 <dd className="mt-1 flex flex-wrap gap-2">
                   {result.artifactRefs.map((artifact) => (
                     <span
-                      className="rounded-full border border-zinc-300 bg-white px-2.5 py-1 text-xs font-semibold text-zinc-700"
+                      className="rounded-full border border-[var(--border)] bg-white px-2.5 py-1 text-xs font-black text-[var(--primary)]"
                       key={artifact}
                     >
                       {artifact}
@@ -96,13 +100,13 @@ export function ExecutionResults({ results }: ExecutionResultsProps) {
               </div>
             </dl>
             {result.errorSummary ? (
-              <p className="mt-3 rounded-md border border-rose-200 bg-rose-50 p-3 text-sm font-semibold text-rose-800">
+              <p className="mt-3 rounded-2xl border border-[#efb5ad] bg-[var(--error-soft)] p-3 text-sm font-black text-[var(--error)]">
                 {result.errorSummary}
               </p>
             ) : null}
           </div>
         ))}
       </div>
-    </div>
+    </PremiumCard>
   );
 }

@@ -1,61 +1,61 @@
 import type { AgentTimelineStep } from "@/lib/types/releaseCheck";
+import { PremiumCard } from "@/components/ui/PremiumCard";
+import { StatusPill } from "@/components/ui/StatusPill";
 
 interface AgentTimelineProps {
   timeline: AgentTimelineStep[];
 }
 
-function statusClassName(status: AgentTimelineStep["status"]) {
+function statusVariant(status: AgentTimelineStep["status"]) {
   if (status === "BLOCKED") {
-    return "border-rose-200 bg-rose-50 text-rose-700";
+    return "blocked";
   }
 
   if (status === "REVIEW_REQUIRED") {
-    return "border-amber-200 bg-amber-50 text-amber-700";
+    return "review";
   }
 
-  return "border-emerald-200 bg-emerald-50 text-emerald-700";
+  return "passed";
 }
 
 export function AgentTimeline({ timeline }: AgentTimelineProps) {
   return (
-    <div className="rounded-lg border border-zinc-200 bg-white p-6 shadow-sm">
-      <p className="text-sm font-semibold uppercase tracking-[0.16em] text-emerald-700">
+    <PremiumCard>
+      <p className="premium-label">
         Agent timeline
       </p>
-      <h2 className="mt-3 text-2xl font-semibold">Local agent pipeline</h2>
-      <div className="mt-5 grid gap-3">
+      <h2 className="mt-3 text-3xl font-black tracking-[-0.05em] text-[var(--text)]">
+        Local agent pipeline
+      </h2>
+      <div className="mt-6 grid gap-4">
         {timeline.map((step) => (
           <div
-            className="grid gap-3 rounded-md border border-zinc-200 bg-zinc-50 p-4 sm:grid-cols-[auto_0.8fr_1fr]"
+            className="grid gap-4 rounded-2xl border border-[#e3d8cc] bg-[var(--surface-low)] p-4 sm:grid-cols-[auto_0.8fr_1fr]"
             key={step.id}
           >
-            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-zinc-950 text-sm font-semibold text-white">
+            <div className="flex h-11 w-11 items-center justify-center rounded-full border border-[var(--border)] bg-white text-sm font-black text-[var(--primary)] premium-soft-shadow">
               {step.sequence}
             </div>
             <div>
-              <p className="font-semibold text-zinc-950">{step.agentName}</p>
-              <p className="mt-1 text-xs font-medium text-zinc-500">
+              <p className="font-black text-[var(--text)]">{step.agentName}</p>
+              <p className="mt-1 text-xs font-bold text-[var(--muted-text)]">
                 {step.durationSeconds}s execution window
               </p>
             </div>
             <div>
-              <span
-                className={`inline-flex rounded-full border px-2.5 py-1 text-xs font-semibold ${statusClassName(
-                  step.status,
-                )}`}
-              >
+              <StatusPill variant={statusVariant(step.status)}>
                 {step.status}
-              </span>
-              <p className="mt-2 text-sm leading-6 text-zinc-700">
+              </StatusPill>
+              <p className="mt-3 text-sm leading-6 text-[var(--secondary-text)]">
                 {step.outcome}
               </p>
-              <p className="mt-2 text-xs font-medium text-zinc-500">
+              <p className="mt-2 text-xs font-bold text-[var(--muted-text)]">
                 {step.startedAt} to {step.completedAt}
               </p>
             </div>
           </div>
         ))}
       </div>
-    </div>
+    </PremiumCard>
   );
 }

@@ -1,3 +1,6 @@
+import { PremiumCard } from "@/components/ui/PremiumCard";
+import { StatusPill } from "@/components/ui/StatusPill";
+
 const mappingItems = [
   {
     label: "Test Manager",
@@ -23,43 +26,43 @@ const mappingItems = [
 
 export function UiPathMappingPanel() {
   return (
-    <div className="rounded-lg border border-zinc-200 bg-white p-6 shadow-sm">
+    <PremiumCard>
       <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
         <div>
-          <p className="text-sm font-semibold uppercase tracking-[0.16em] text-emerald-700">
+          <p className="premium-label">
             UiPath mapping
           </p>
-          <h2 className="mt-3 text-2xl font-semibold">
+          <h2 className="mt-3 text-3xl font-black tracking-[-0.05em] text-[var(--text)]">
             Proof layer ready for future integration
           </h2>
-          <p className="mt-3 max-w-3xl leading-7 text-zinc-700">
+          <p className="mt-3 max-w-3xl leading-7 text-[var(--secondary-text)]">
             This dashboard currently runs on deterministic local data. The
             proof layer maps each release-check surface to future UiPath Test
             Cloud, Test Manager, API Workflows, Action Center, and Coded Agents
             integration points.
           </p>
         </div>
-        <span className="w-fit rounded-full border border-amber-200 bg-amber-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.12em] text-amber-700">
+        <StatusPill variant="pending">
           Real connection pending
-        </span>
+        </StatusPill>
       </div>
 
       <div className="mt-5 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
         {mappingItems.map((item) => (
           <div
-            className="rounded-md border border-zinc-200 bg-zinc-50 p-4"
+            className="rounded-2xl border border-[#e3d8cc] bg-[var(--surface-low)] p-4"
             key={item.label}
           >
-            <p className="font-semibold text-zinc-950">{item.label}</p>
-            <p className="mt-2 text-sm leading-6 text-zinc-700">
+            <p className="font-black text-[var(--text)]">{item.label}</p>
+            <p className="mt-2 text-sm leading-6 text-[var(--secondary-text)]">
               {item.detail}
             </p>
-            <p className="mt-3 text-xs font-semibold uppercase tracking-[0.12em] text-emerald-700">
+            <p className="mt-3 text-xs font-black uppercase tracking-[0.12em] text-[var(--primary)]">
               {item.artifact}
             </p>
           </div>
         ))}
       </div>
-    </div>
+    </PremiumCard>
   );
 }
