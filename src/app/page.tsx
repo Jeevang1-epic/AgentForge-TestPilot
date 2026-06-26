@@ -100,7 +100,7 @@ export default function Home() {
                     {previewBars.map((bar, index) => (
                       <div
                         className="w-full rounded-t-md bg-[var(--primary-soft)]"
-                        key={bar + index}
+                        key={`${bar}-${index}`}
                         style={{ height: `${bar}%` }}
                       />
                     ))}

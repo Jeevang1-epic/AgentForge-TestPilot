@@ -9,9 +9,11 @@ interface EvidenceReportViewProps {
 export function EvidenceReportView({ report }: EvidenceReportViewProps) {
   return (
     <PremiumCard
-      className="scroll-mt-28"
+      aria-label="Evidence report preview, scrollable"
+      className="max-h-[980px] scroll-mt-28 overflow-y-auto pr-3 focus:outline-none focus:ring-2 focus:ring-[var(--primary-container)]"
       data-screenshot="evidence-report-preview"
       id="evidence-report"
+      tabIndex={0}
     >
       <p className="premium-label">Evidence report preview</p>
       <div className="mt-3 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">

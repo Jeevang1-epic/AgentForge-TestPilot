@@ -27,6 +27,9 @@ Phase 4 focused on root-cause debugging, submission safety, route stability, scr
 - Forbidden tracked artifact scan returned no matches.
 - Mobile sanity check found no horizontal overflow on the homepage or release dashboard.
 - Release dashboard now includes a small `Back to Home` control near the top-left content area.
+- Homepage preview bars use stable unique render keys.
+- Evidence report preview is bounded with internal scrolling to reduce release dashboard page length.
+- Browser console checks completed with no warnings on the homepage or release dashboard.
 
 ## Screenshots Verified
 
