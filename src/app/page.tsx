@@ -1,110 +1,191 @@
 import Link from "next/link";
+import { PremiumCard } from "@/components/ui/PremiumCard";
+import { PremiumShell } from "@/components/ui/PremiumShell";
+import { StatusPill } from "@/components/ui/StatusPill";
 
-const governanceSteps = [
-  "Requirement analysis",
-  "Business risk scoring",
-  "Generated release tests",
-  "Execution review",
-  "Failure diagnosis",
-  "Release gate evidence",
+const previewBars = [36, 54, 42, 68, 47, 76, 58, 84, 62, 72, 91, 65];
+
+const featureCards = [
+  {
+    label: "Risk Scoring",
+    summary:
+      "Weighted evaluation of financial controls, threshold routing, exception handling, and audit readiness before release.",
+  },
+  {
+    label: "Evidence Reporting",
+    summary:
+      "Submission-ready traceability across requirements, risk, tests, failed controls, human review, and UiPath proof mapping.",
+  },
+  {
+    label: "Human Review",
+    summary:
+      "Blocked releases are routed into an explicit review path with approvers, release conditions, and next actions.",
+  },
+  {
+    label: "UiPath Proof Layer",
+    summary:
+      "Contract-ready mapping for Test Manager, API Workflows, Action Center, and governed Coded Agent steps.",
+  },
 ];
 
 export default function Home() {
   return (
-    <main className="min-h-screen">
-      <section className="mx-auto flex min-h-screen w-full max-w-7xl flex-col px-6 py-8 lg:px-10">
-        <nav className="flex items-center justify-between border-b border-zinc-200 pb-5">
-          <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-emerald-700">
-              UiPath AgentHack Track 3
-            </p>
-            <p className="mt-1 text-lg font-semibold text-zinc-950">
-              AgentForge TestPilot
-            </p>
-          </div>
+    <PremiumShell active="home">
+      <section className="flex flex-1 flex-col items-center px-2 pb-16 pt-20 text-center lg:pt-28">
+        <StatusPill variant="pending">
+          Current status: local deterministic prototype with UiPath proof layer
+        </StatusPill>
+
+        <h1 className="mt-8 max-w-5xl text-5xl font-black tracking-[-0.055em] text-[var(--text)] md:text-7xl">
+          Deterministic release governance for enterprise automation.
+        </h1>
+        <p className="mt-6 max-w-3xl text-lg leading-8 text-[var(--secondary-text)] md:text-xl">
+          Agentic QA and evidence-backed approval readiness for
+          mission-critical invoice workflows. Built for calm release decisions,
+          explainable controls, and portfolio-safe UiPath proof planning.
+        </p>
+
+        <div className="mt-10 flex flex-col gap-3 sm:flex-row">
           <Link
-            className="rounded-md bg-zinc-950 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-emerald-800"
+            className="rounded-full bg-[var(--primary-container)] px-8 py-4 text-sm font-black uppercase tracking-[0.12em] text-[var(--primary)] transition hover:bg-[var(--primary-soft)]"
             href="/release-check"
           >
-            Open release check
+            Enter Release Dashboard
           </Link>
-        </nav>
+          <Link
+            className="rounded-full border border-[var(--border)] bg-white/70 px-8 py-4 text-sm font-black uppercase tracking-[0.12em] text-[var(--secondary-text)] transition hover:border-[var(--primary)] hover:text-[var(--primary)]"
+            href="#proof-layer"
+          >
+            View Proof Layer
+          </Link>
+        </div>
 
-        <div className="grid flex-1 items-center gap-10 py-12 lg:grid-cols-[1.05fr_0.95fr]">
-          <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-emerald-700">
-              Agentic QA command center
-            </p>
-            <h1 className="mt-5 max-w-4xl text-5xl font-semibold tracking-tight text-zinc-950 md:text-7xl">
-              Govern invoice automation releases before they reach production.
-            </h1>
-            <p className="mt-6 max-w-2xl text-lg leading-8 text-zinc-700">
-              AgentForge TestPilot turns a release change request into a
-              deterministic QA review: requirements, risk score, test plan,
-              execution analysis, failure diagnosis, release gate, and evidence
-              report.
-            </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Link
-                className="rounded-md bg-emerald-700 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-emerald-800"
-                href="/release-check"
-              >
-                View invoice release dashboard
-              </Link>
-              <a
-                className="rounded-md border border-zinc-300 bg-white px-5 py-3 text-sm font-semibold text-zinc-900 shadow-sm transition hover:border-emerald-700 hover:text-emerald-800"
-                href="https://github.com/Jeevang1-epic/AgentForge-TestPilot"
-              >
-                Repository
-              </a>
-            </div>
-          </div>
-
-          <div className="rounded-lg border border-zinc-200 bg-white p-6 shadow-xl shadow-zinc-900/5">
-            <div className="flex items-start justify-between gap-6 border-b border-zinc-200 pb-5">
-              <div>
-                <p className="text-sm font-semibold text-zinc-500">
-                  Demo scenario
-                </p>
-                <h2 className="mt-2 text-2xl font-semibold text-zinc-950">
-                  Invoice approval automation release check
-                </h2>
-              </div>
-              <span className="rounded-full border border-rose-200 bg-rose-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-rose-700">
-                Blocked
+        <PremiumCard className="mt-16 w-full max-w-6xl p-3 text-left" tone="low">
+          <div className="rounded-[20px] border border-[var(--border)] bg-[var(--surface-card)]">
+            <div className="flex items-center gap-2 border-b border-[#e4dbd2] px-5 py-4">
+              <span className="h-2.5 w-2.5 rounded-full bg-[#e7d7c0]" />
+              <span className="h-2.5 w-2.5 rounded-full bg-[#dcc7aa]" />
+              <span className="h-2.5 w-2.5 rounded-full bg-[#c5a880]" />
+              <span className="ml-4 text-xs font-bold uppercase tracking-[0.16em] text-[var(--muted-text)]">
+                Invoice release command center
               </span>
             </div>
 
-            <div className="mt-6 grid gap-3">
-              {governanceSteps.map((step, index) => (
-                <div
-                  className="flex items-center gap-4 rounded-md border border-zinc-200 bg-zinc-50 px-4 py-3"
-                  key={step}
-                >
-                  <span className="flex h-8 w-8 items-center justify-center rounded-full bg-emerald-700 text-sm font-semibold text-white">
-                    {index + 1}
-                  </span>
-                  <span className="font-medium text-zinc-800">{step}</span>
+            <div className="grid gap-0 overflow-hidden rounded-b-[20px] bg-[#314746] p-6 lg:grid-cols-[1.15fr_0.85fr] lg:p-10">
+              <div className="rounded-[22px] border border-white/25 bg-white/94 p-6 premium-shadow">
+                <div className="flex items-start justify-between gap-6">
+                  <div>
+                    <p className="premium-label">Risk score</p>
+                    <p className="mt-2 text-5xl font-black tracking-[-0.06em] text-[var(--error)]">
+                      94
+                    </p>
+                  </div>
+                  <StatusPill variant="blocked">Blocked</StatusPill>
                 </div>
-              ))}
-            </div>
+                <div className="mt-8 flex h-44 items-end gap-2 border-b border-l border-[#ded5ca] px-3 pb-4">
+                  {previewBars.map((bar, index) => (
+                    <div
+                      className="w-full rounded-t-md bg-[var(--primary-soft)]"
+                      key={bar + index}
+                      style={{ height: `${bar}%` }}
+                    />
+                  ))}
+                </div>
+                <div className="mt-5 grid gap-3 text-sm text-[var(--secondary-text)] sm:grid-cols-3">
+                  <span>5 tests generated</span>
+                  <span>4 passed</span>
+                  <span>1 critical failed</span>
+                </div>
+              </div>
 
-            <div className="mt-6 rounded-md bg-zinc-950 p-5 text-white">
-              <p className="text-sm font-semibold uppercase tracking-[0.16em] text-emerald-300">
-                Critical finding
-              </p>
-              <p className="mt-3 text-xl font-semibold">
-                A high-value invoice bypasses manager approval after a
-                threshold-routing change.
-              </p>
-              <p className="mt-3 text-sm leading-6 text-zinc-300">
-                The local agent pipeline blocks the release and prepares
-                evidence for human review.
-              </p>
+              <div className="grid gap-4 bg-white/10 p-0 lg:p-6">
+                <div className="rounded-[22px] border border-white/20 bg-white/92 p-5">
+                  <p className="premium-label">Critical finding</p>
+                  <p className="mt-3 text-2xl font-black tracking-[-0.04em] text-[var(--text)]">
+                    High-value invoice bypassed manager approval.
+                  </p>
+                  <p className="mt-3 text-sm leading-6 text-[var(--secondary-text)]">
+                    The release gate blocks deployment and prepares evidence
+                    for human review.
+                  </p>
+                </div>
+                <div className="rounded-[22px] border border-white/20 bg-white/92 p-5">
+                  <p className="premium-label">Evidence readiness</p>
+                  <div className="mt-4 h-3 overflow-hidden rounded-full bg-[#e7ded4]">
+                    <div className="h-full w-[98%] rounded-full bg-[var(--primary-container)]" />
+                  </div>
+                  <p className="mt-3 text-sm font-semibold text-[var(--secondary-text)]">
+                    Report preview and traceability are ready for review.
+                  </p>
+                </div>
+              </div>
             </div>
+          </div>
+        </PremiumCard>
+      </section>
+
+      <section
+        className="grid gap-5 px-2 pb-16 md:grid-cols-2 xl:grid-cols-4"
+        id="documentation"
+      >
+        {featureCards.map((feature) => (
+          <PremiumCard hover key={feature.label}>
+            <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-[var(--border)] bg-[var(--surface-low)] text-sm font-black text-[var(--primary)]">
+              {feature.label
+                .split(" ")
+                .map((word) => word[0])
+                .join("")}
+            </div>
+            <h2 className="mt-8 text-2xl font-black tracking-[-0.04em] text-[var(--text)]">
+              {feature.label}
+            </h2>
+            <p className="mt-4 text-sm leading-7 text-[var(--secondary-text)]">
+              {feature.summary}
+            </p>
+          </PremiumCard>
+        ))}
+      </section>
+
+      <section
+        className="grid items-center gap-8 border-t border-[var(--border)] px-2 py-20 lg:grid-cols-[0.9fr_1.1fr]"
+        id="proof-layer"
+      >
+        <PremiumCard className="min-h-[360px] bg-[linear-gradient(90deg,rgba(114,91,56,0.05)_1px,transparent_1px),linear-gradient(rgba(114,91,56,0.05)_1px,transparent_1px)] bg-[length:28px_28px]">
+          <div className="mx-auto flex max-w-md flex-col gap-10 pt-6">
+            <div className="rounded-xl border border-[var(--border)] bg-[var(--primary-container)] px-6 py-4 text-sm font-black text-[var(--primary)] premium-soft-shadow">
+              UiPath Orchestrator: execution layer
+            </div>
+            <div className="ml-10 rounded-xl border border-[var(--border)] bg-white px-6 py-4 text-sm font-black text-[var(--primary)] premium-soft-shadow">
+              Contract proof layer
+            </div>
+            <div className="mr-10 rounded-xl border border-[var(--border)] bg-[var(--surface-raised)] px-6 py-4 text-sm font-black text-[var(--primary)] premium-soft-shadow">
+              AgentForge TestPilot: governance layer
+            </div>
+          </div>
+        </PremiumCard>
+
+        <div>
+          <p className="premium-label">Contract-only connection</p>
+          <h2 className="mt-4 max-w-2xl text-4xl font-black tracking-[-0.05em] text-[var(--text)] md:text-5xl">
+            UiPath alignment without claiming a live integration.
+          </h2>
+          <p className="mt-5 max-w-2xl text-base leading-8 text-[var(--secondary-text)]">
+            The proof layer maps deterministic release governance to future
+            Test Manager, API Workflows, Action Center, and Coded Agent
+            surfaces. Real connectivity remains pending secure implementation.
+          </p>
+          <div className="mt-8 grid gap-3 text-sm font-semibold text-[var(--secondary-text)]">
+            <span>Contract-ready proof artifacts are included in the repository.</span>
+            <span>Release evidence stays local and deterministic in this prototype.</span>
+            <span>No secrets, external services, or fake UiPath live calls are used.</span>
           </div>
         </div>
       </section>
-    </main>
+
+      <footer className="flex flex-col gap-4 border-t border-[var(--border)] px-2 py-8 text-sm text-[var(--muted-text)] md:flex-row md:items-center md:justify-between">
+        <p className="font-bold text-[var(--primary)]">AgentForge TestPilot</p>
+        <p>Enterprise release governance prototype.</p>
+      </footer>
+    </PremiumShell>
   );
 }
