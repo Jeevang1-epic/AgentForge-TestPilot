@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { AgentTimeline } from "@/components/dashboard/AgentTimeline";
 import { EvidenceReportView } from "@/components/dashboard/EvidenceReportView";
 import { ExecutionResults } from "@/components/dashboard/ExecutionResults";
@@ -8,6 +7,9 @@ import { RequirementAnalysisPanel } from "@/components/dashboard/RequirementAnal
 import { RiskScoreCard } from "@/components/dashboard/RiskScoreCard";
 import { TestPlanTable } from "@/components/dashboard/TestPlanTable";
 import { UiPathMappingPanel } from "@/components/dashboard/UiPathMappingPanel";
+import { PremiumCard } from "@/components/ui/PremiumCard";
+import { PremiumShell } from "@/components/ui/PremiumShell";
+import { StatusPill } from "@/components/ui/StatusPill";
 import { runReleaseCheckPipeline } from "@/lib/orchestrator/releaseCheckOrchestrator";
 
 const judgeDemoFlow = [
@@ -26,241 +28,250 @@ export default function ReleaseCheckPage() {
   const passedCount = releaseCheck.executionResults.filter(
     (result) => result.status === "PASSED",
   ).length;
+  const failedCount = releaseCheck.executionResults.filter(
+    (result) => result.status === "FAILED",
+  ).length;
+  const criticalFailureCount = releaseCheck.executionResults.filter(
+    (result) => result.status === "FAILED" && result.critical,
+  ).length;
 
   return (
-    <main className="min-h-screen bg-zinc-50 px-4 py-6 text-zinc-950 md:px-8">
-      <section className="mx-auto max-w-7xl">
-        <header className="grid gap-6 border-b border-zinc-200 pb-6 lg:grid-cols-[1.15fr_0.85fr]">
-          <div className="rounded-lg border border-zinc-200 bg-white p-6 shadow-sm">
-            <Link
-              className="text-sm font-semibold text-emerald-800 hover:text-emerald-950"
-              href="/"
-            >
-              AgentForge TestPilot
-            </Link>
-            <p className="mt-5 text-sm font-semibold uppercase tracking-[0.16em] text-emerald-700">
-              Project thesis
-            </p>
-            <h1 className="mt-3 text-4xl font-semibold tracking-tight md:text-5xl">
-              AI release gate for UiPath automations
-            </h1>
-            <p className="mt-4 max-w-3xl text-base leading-7 text-zinc-700">
-              A deterministic release-check dashboard that turns an invoice
-              approval change request into requirements, risk scoring, test
-              coverage, execution evidence, failure diagnosis, and a governed
-              release decision.
-            </p>
-            <div className="mt-5 grid gap-3 md:grid-cols-2">
-              <div className="rounded-md border border-zinc-200 bg-zinc-50 p-4">
-                <p className="text-sm font-semibold text-zinc-500">
-                  Demo scenario
-                </p>
-                <p className="mt-2 font-semibold text-zinc-950">
-                  Invoice approval threshold routing
-                </p>
-              </div>
-              <div className="rounded-md border border-zinc-200 bg-zinc-50 p-4">
-                <p className="text-sm font-semibold text-zinc-500">
-                  Release candidate
-                </p>
-                <p className="mt-2 font-semibold text-zinc-950">
-                  {releaseCheck.metadata.releaseCandidateId}
-                </p>
-              </div>
-            </div>
-            <p className="mt-4 text-sm font-medium text-zinc-500">
-              {releaseCheck.metadata.pipelineVersion} -{" "}
-              {releaseCheck.metadata.dataSource}
-            </p>
-          </div>
-
-          <div className="rounded-lg border border-zinc-200 bg-zinc-950 p-6 text-white shadow-sm">
-            <p className="text-sm font-semibold uppercase tracking-[0.16em] text-emerald-300">
-              Judge Demo Flow
-            </p>
-            <h2 className="mt-3 text-2xl font-semibold">
-              Understand the full release story in under 60 seconds.
-            </h2>
-            <ol className="mt-5 grid gap-3">
-              {judgeDemoFlow.map((step, index) => (
-                <li
-                  className="flex gap-3 rounded-md border border-white/10 bg-white/5 p-3 text-sm leading-6 text-zinc-200"
-                  key={step}
-                >
-                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-emerald-400 text-xs font-semibold text-zinc-950">
-                    {index + 1}
-                  </span>
-                  {step}
-                </li>
-              ))}
-            </ol>
-            <div className="mt-5 rounded-md border border-rose-300/40 bg-rose-400/10 p-4">
-              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-rose-200">
-                Release gate decision
-              </p>
-              <p className="mt-2 text-2xl font-semibold">
+    <PremiumShell active="governance">
+      <section className="px-2 pb-20 pt-16">
+        <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
+          <div>
+            <div className="flex flex-wrap items-center gap-3">
+              <span className="premium-label">Release governance</span>
+              <span className="text-sm font-black text-[var(--muted-text)]">
+                {releaseCheck.metadata.releaseCandidateId}
+              </span>
+              <StatusPill variant="blocked">
                 {releaseCheck.humanReviewDecision.decision}
-              </p>
-              <p className="mt-2 text-sm leading-6 text-rose-100">
-                {releaseCheck.humanReviewDecision.nextAction}
+              </StatusPill>
+            </div>
+            <h1 className="mt-5 text-5xl font-black tracking-[-0.06em] text-[var(--text)] md:text-7xl">
+              Release governance check
+            </h1>
+            <p className="mt-5 max-w-3xl text-lg leading-8 text-[var(--secondary-text)]">
+              {releaseCheck.metadata.runName} for{" "}
+              {releaseCheck.metadata.scenario}. The deterministic pipeline
+              found a high-value invoice approval bypass and prepared evidence
+              for human review.
+            </p>
+          </div>
+          <div className="flex flex-wrap gap-3">
+            <button className="rounded-full border border-[var(--border)] bg-white/70 px-6 py-3 text-sm font-black uppercase tracking-[0.12em] text-[var(--secondary-text)]">
+              View Evidence
+            </button>
+            <button className="rounded-full bg-[var(--error)] px-6 py-3 text-sm font-black uppercase tracking-[0.12em] text-white">
+              Review Release
+            </button>
+          </div>
+        </div>
+
+        <PremiumCard className="mt-12 p-8 lg:p-12" tone="danger">
+          <div className="grid gap-8 lg:grid-cols-[auto_1fr]">
+            <div className="flex h-16 w-16 items-center justify-center rounded-full border border-[#efb5ad] bg-[var(--error-soft)] text-3xl font-black text-[var(--error)]">
+              !
+            </div>
+            <div>
+              <StatusPill variant="blocked">Critical failure detected</StatusPill>
+              <h2 className="mt-5 max-w-5xl text-4xl font-black tracking-[-0.055em] text-[var(--error)] md:text-5xl">
+                Critical Failure Detected - Needs Human Review
+              </h2>
+              <p className="mt-5 max-w-4xl text-xl leading-9 text-[var(--secondary-text)]">
+                {failedResult?.errorSummary ??
+                  "High-value invoice bypassed manager approval in pre-production."}{" "}
+                The release gate is blocked until remediation, rerun evidence,
+                and finance governance review are complete.
               </p>
             </div>
           </div>
-        </header>
+        </PremiumCard>
 
-        <section className="mt-6 grid gap-4 md:grid-cols-4">
-          <div className="rounded-lg border border-zinc-200 bg-white p-5 shadow-sm">
-            <p className="text-sm font-semibold text-zinc-500">Automation</p>
-            <p className="mt-2 text-xl font-semibold">
-              {releaseCheck.changeRequest.automationName}
+        <section className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+          <PremiumCard>
+            <p className="premium-label">Overall risk score</p>
+            <p className="mt-8 text-6xl font-black tracking-[-0.07em] text-[var(--error)]">
+              {releaseCheck.riskAssessment.score}
+              <span className="ml-2 text-2xl text-[var(--secondary-text)]">
+                / 100
+              </span>
             </p>
-          </div>
-          <div className="rounded-lg border border-zinc-200 bg-white p-5 shadow-sm">
-            <p className="text-sm font-semibold text-zinc-500">Target window</p>
-            <p className="mt-2 text-xl font-semibold">
-              {releaseCheck.changeRequest.targetReleaseWindow}
+            <div className="mt-6 h-3 overflow-hidden rounded-full bg-[#ede6df]">
+              <div
+                className="h-full rounded-full bg-[var(--error)]"
+                style={{ width: `${releaseCheck.riskAssessment.score}%` }}
+              />
+            </div>
+            <p className="mt-4 text-sm font-bold uppercase tracking-[0.1em] text-[var(--error)]">
+              {releaseCheck.riskAssessment.level} risk
             </p>
-          </div>
-          <div className="rounded-lg border border-zinc-200 bg-white p-5 shadow-sm">
-            <p className="text-sm font-semibold text-zinc-500">
-              Tests reviewed
+          </PremiumCard>
+
+          <PremiumCard>
+            <p className="premium-label">Test coverage</p>
+            <p className="mt-8 text-6xl font-black tracking-[-0.07em] text-[var(--primary)]">
+              {releaseCheck.testCases.length}
             </p>
-            <p className="mt-2 text-xl font-semibold">
-              {passedCount} passed / {releaseCheck.executionResults.length}{" "}
-              total
+            <div className="mt-6 h-3 overflow-hidden rounded-full bg-[#ede6df]">
+              <div className="h-full w-full rounded-full bg-[var(--primary)]" />
+            </div>
+            <p className="mt-4 text-sm font-bold text-[var(--muted-text)]">
+              Release-gate cases generated from requirements.
             </p>
-          </div>
-          <div className="rounded-lg border border-zinc-200 bg-white p-5 shadow-sm">
-            <p className="text-sm font-semibold text-zinc-500">
-              Critical failed test
+          </PremiumCard>
+
+          <PremiumCard>
+            <p className="premium-label">Failed tests</p>
+            <p className="mt-8 text-6xl font-black tracking-[-0.07em] text-[var(--error)]">
+              {failedCount}
             </p>
-            <p className="mt-2 text-xl font-semibold">
-              {failedResult?.testCaseId ?? "None"}
+            <p className="mt-6 text-sm font-bold text-[var(--secondary-text)]">
+              {passedCount} passed, {criticalFailureCount} critical failure.
             </p>
+            <StatusPill className="mt-4" variant="blocked">
+              {failedResult?.testCaseId ?? "No failed test"}
+            </StatusPill>
+          </PremiumCard>
+
+          <PremiumCard>
+            <p className="premium-label">Release gate status</p>
+            <p className="mt-8 text-4xl font-black tracking-[-0.05em] text-[var(--error)]">
+              Blocked
+            </p>
+            <p className="mt-6 text-sm leading-7 text-[var(--secondary-text)]">
+              Evidence report is ready. Human review is required before any
+              production release decision.
+            </p>
+            <StatusPill className="mt-4" variant="pending">
+              Real UiPath connection pending
+            </StatusPill>
+          </PremiumCard>
+        </section>
+
+        <section className="mt-8 grid gap-6 xl:grid-cols-[1.15fr_0.85fr]">
+          <AgentTimeline timeline={releaseCheck.timeline} />
+
+          <div className="grid gap-6">
+            <PremiumCard>
+              <p className="premium-label">Judge Demo Flow</p>
+              <h2 className="mt-4 text-3xl font-black tracking-[-0.05em] text-[var(--text)]">
+                Full release story in under 60 seconds.
+              </h2>
+              <ol className="mt-6 grid gap-3">
+                {judgeDemoFlow.map((step, index) => (
+                  <li
+                    className="flex gap-3 rounded-2xl border border-[#e3d8cc] bg-[var(--surface-low)] p-4 text-sm font-semibold leading-6 text-[var(--secondary-text)]"
+                    key={step}
+                  >
+                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[var(--primary-container)] text-xs font-black text-[var(--primary)]">
+                      {index + 1}
+                    </span>
+                    {step}
+                  </li>
+                ))}
+              </ol>
+            </PremiumCard>
+
+            <PremiumCard tone="raised">
+              <p className="premium-label">Release context</p>
+              <dl className="mt-6 grid gap-4 text-sm">
+                <div className="flex items-center justify-between gap-4">
+                  <dt className="text-[var(--muted-text)]">Automation</dt>
+                  <dd className="font-black text-[var(--text)]">
+                    {releaseCheck.changeRequest.automationName}
+                  </dd>
+                </div>
+                <div className="flex items-center justify-between gap-4">
+                  <dt className="text-[var(--muted-text)]">Environment</dt>
+                  <dd className="font-black text-[var(--text)]">
+                    {releaseCheck.changeRequest.environment}
+                  </dd>
+                </div>
+                <div className="flex items-center justify-between gap-4">
+                  <dt className="text-[var(--muted-text)]">Target window</dt>
+                  <dd className="font-black text-[var(--text)]">
+                    {releaseCheck.changeRequest.targetReleaseWindow}
+                  </dd>
+                </div>
+              </dl>
+            </PremiumCard>
           </div>
         </section>
 
         {failedResult ? (
-          <section className="mt-6 rounded-lg border border-rose-200 bg-rose-50 p-6 shadow-sm">
-            <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
-              <div>
-                <p className="text-sm font-semibold uppercase tracking-[0.16em] text-rose-700">
-                  Failed test details
-                </p>
-                <h2 className="mt-3 text-2xl font-semibold text-rose-950">
+          <section className="mt-8 grid gap-6 xl:grid-cols-[0.9fr_1.1fr]">
+            <PremiumCard tone="danger">
+              <p className="premium-label">Failed test details</p>
+              <h2 className="mt-5 text-3xl font-black tracking-[-0.05em] text-[var(--text)]">
+                High-value invoice bypassed manager approval
+              </h2>
+              <p className="mt-4 text-base leading-8 text-[var(--secondary-text)]">
+                {failedResult.actualResult}
+              </p>
+              <div className="mt-6 rounded-2xl border border-[#efb5ad] bg-white/80 p-5">
+                <p className="text-sm font-black text-[var(--error)]">
                   {failedResult.testCaseId}: {failedResult.testCaseTitle}
-                </h2>
-                <p className="mt-3 leading-7 text-rose-950">
-                  {failedResult.errorSummary}
                 </p>
-              </div>
-              <span className="w-fit rounded-full bg-rose-700 px-3 py-1 text-xs font-semibold text-white">
-                Critical control failure
-              </span>
-            </div>
-            <div className="mt-5 grid gap-3 md:grid-cols-2">
-              <div className="rounded-md bg-white/70 p-4">
-                <p className="text-sm font-semibold text-rose-900">Evidence</p>
-                <p className="mt-2 leading-6 text-rose-950">
+                <p className="mt-3 text-sm leading-7 text-[var(--secondary-text)]">
                   {failedResult.evidence}
                 </p>
               </div>
-              <div className="rounded-md bg-white/70 p-4">
-                <p className="text-sm font-semibold text-rose-900">
-                  Actual result
-                </p>
-                <p className="mt-2 leading-6 text-rose-950">
-                  {failedResult.actualResult}
-                </p>
+            </PremiumCard>
+
+            <PremiumCard>
+              <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                <p className="premium-label">Failure diagnosis trace</p>
+                <StatusPill variant="blocked">
+                  {releaseCheck.failureDiagnosis.severity}
+                </StatusPill>
               </div>
-            </div>
+              <pre className="mt-6 overflow-auto rounded-2xl border border-[#e3d8cc] bg-[#f4eeee] p-5 text-sm leading-7 text-[var(--secondary-text)]">
+                <code>{`ERROR: Approval_Control_Bypass
+Location: invoice-routing/preferred-vendor-threshold
+Context:
+{
+  "invoice_amount": "USD 48,500",
+  "preferred_vendor": true,
+  "manager_approval_required": true,
+  "actual_route": "Finance validation",
+  "expected_route": "Manager approval"
+}
+Root cause:
+${releaseCheck.failureDiagnosis.rootCause}`}</code>
+              </pre>
+            </PremiumCard>
           </section>
         ) : null}
 
-        <section className="mt-6 rounded-lg border border-zinc-200 bg-white p-6 shadow-sm">
-          <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
-            <div>
-              <p className="text-sm font-semibold uppercase tracking-[0.16em] text-emerald-700">
-                Change request
-              </p>
-              <h2 className="mt-3 text-2xl font-semibold">
-                {releaseCheck.changeRequest.title}
-              </h2>
-              <p className="mt-4 leading-7 text-zinc-700">
-                {releaseCheck.changeRequest.summary}
-              </p>
-              <div className="mt-5 rounded-md border border-amber-200 bg-amber-50 p-4">
-                <p className="text-sm font-semibold text-amber-900">
-                  What changed
-                </p>
-                <p className="mt-2 leading-6 text-amber-950">
-                  Preferred vendor invoices under USD 25,000 can fast-path to
-                  finance validation, but invoices at or above USD 25,000 must
-                  still route to manager approval.
-                </p>
-              </div>
-            </div>
-            <div className="grid gap-3 sm:grid-cols-2">
-              <div className="rounded-md bg-zinc-50 p-4">
-                <p className="text-sm font-semibold text-zinc-500">
-                  Requester
-                </p>
-                <p className="mt-2 font-medium">
-                  {releaseCheck.changeRequest.requester}
-                </p>
-              </div>
-              <div className="rounded-md bg-zinc-50 p-4">
-                <p className="text-sm font-semibold text-zinc-500">
-                  Business owner
-                </p>
-                <p className="mt-2 font-medium">
-                  {releaseCheck.changeRequest.businessOwner}
-                </p>
-              </div>
-              <div className="rounded-md bg-zinc-50 p-4">
-                <p className="text-sm font-semibold text-zinc-500">
-                  Environment
-                </p>
-                <p className="mt-2 font-medium">
-                  {releaseCheck.changeRequest.environment}
-                </p>
-              </div>
-              <div className="rounded-md bg-zinc-50 p-4">
-                <p className="text-sm font-semibold text-zinc-500">Scope</p>
-                <p className="mt-2 font-medium">
-                  {releaseCheck.changeRequest.scope}
-                </p>
-              </div>
-            </div>
+        <section className="mt-8 rounded-[28px] border border-[var(--border)] bg-white/72 p-4 premium-soft-shadow">
+          <div className="grid gap-6 xl:grid-cols-[0.9fr_1.1fr]">
+            <RequirementAnalysisPanel
+              analysis={releaseCheck.requirementAnalysis}
+            />
+            <RiskScoreCard assessment={releaseCheck.riskAssessment} />
           </div>
         </section>
 
-        <section className="mt-6 grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
-          <AgentTimeline timeline={releaseCheck.timeline} />
-          <RiskScoreCard assessment={releaseCheck.riskAssessment} />
-        </section>
-
-        <section className="mt-6 grid gap-6 lg:grid-cols-[0.85fr_1.15fr]">
-          <RequirementAnalysisPanel
-            analysis={releaseCheck.requirementAnalysis}
-          />
+        <section className="mt-8">
           <TestPlanTable testCases={releaseCheck.testCases} />
         </section>
 
-        <section className="mt-6 grid gap-6 lg:grid-cols-[1.05fr_0.95fr]">
+        <section className="mt-8 grid gap-6 xl:grid-cols-[1.05fr_0.95fr]">
           <ExecutionResults results={releaseCheck.executionResults} />
           <FailureDiagnosisPanel diagnosis={releaseCheck.failureDiagnosis} />
         </section>
 
-        <section className="mt-6 grid gap-6 lg:grid-cols-[0.8fr_1.2fr]">
+        <section className="mt-8 grid gap-6 xl:grid-cols-[0.8fr_1.2fr]">
           <HumanReviewPanel decision={releaseCheck.humanReviewDecision} />
           <EvidenceReportView report={releaseCheck.evidenceReport} />
         </section>
 
-        <section className="mt-6">
+        <section className="mt-8">
           <UiPathMappingPanel />
         </section>
       </section>
-    </main>
+    </PremiumShell>
   );
 }
