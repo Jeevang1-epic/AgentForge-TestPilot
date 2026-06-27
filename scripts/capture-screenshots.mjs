@@ -25,6 +25,11 @@ const captures = [
     path: "/release-check",
     selector: '[data-screenshot="uipath-proof-layer"]',
   },
+  {
+    file: "uipath-integration-readiness.png",
+    path: "/release-check",
+    selector: '[data-screenshot="uipath-integration-readiness"]',
+  },
 ];
 
 async function openPage(page, route) {
