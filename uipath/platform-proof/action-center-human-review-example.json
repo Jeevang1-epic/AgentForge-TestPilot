@@ -1,0 +1,29 @@
+{
+  "prototypeStatus": "deterministic-local",
+  "uipathConnectionStatus": "proof-layer-ready-real-connection-pending",
+  "actionInput": {
+    "releaseCheckId": "RC-AF-INV-2026-001",
+    "riskScore": 94,
+    "failedTestId": "TC-INV-002",
+    "failureSummary": "High-value invoice bypasses manager approval after threshold-routing change",
+    "reviewQueue": "Finance automation release governance",
+    "requiredApprovers": [
+      "Accounts Payable Governance",
+      "Finance Operations Lead",
+      "Automation QA Owner"
+    ]
+  },
+  "deterministicOutput": {
+    "reviewerDecision": "BLOCKED",
+    "reviewerComment": "Release is blocked because a critical approval-control test failed.",
+    "finalStatus": "BLOCKED",
+    "riskAccepted": false,
+    "releaseConditions": [
+      "Fix the high-value approval guard in threshold routing.",
+      "Rerun the full invoice approval release-gate suite.",
+      "Attach passing execution evidence to the release record.",
+      "Obtain finance governance approval before production deployment."
+    ],
+    "decidedAt": "2026-06-26T08:42:42+05:30"
+  }
+}

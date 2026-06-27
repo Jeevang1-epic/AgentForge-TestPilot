@@ -1,0 +1,94 @@
+{
+  "prototypeStatus": "deterministic-local",
+  "uipathConnectionStatus": "proof-layer-ready-real-connection-pending",
+  "releaseCheckId": "RC-AF-INV-2026-001",
+  "requirements": [
+    {
+      "requirementId": "REQ-001",
+      "name": "Preferred vendor fast path",
+      "description": "Preferred vendor invoices below USD 25,000 route to finance validation.",
+      "priority": "HIGH",
+      "coveredBy": [
+        "TC-INV-001",
+        "TC-INV-005"
+      ]
+    },
+    {
+      "requirementId": "REQ-002",
+      "name": "High-value approval control",
+      "description": "Invoices at or above USD 25,000 route to manager approval before finance validation.",
+      "priority": "CRITICAL",
+      "coveredBy": [
+        "TC-INV-002",
+        "TC-INV-005"
+      ]
+    },
+    {
+      "requirementId": "REQ-003",
+      "name": "Exception screening",
+      "description": "Duplicate invoice matches and tax exception flags must override preferred vendor routing.",
+      "priority": "CRITICAL",
+      "coveredBy": [
+        "TC-INV-003",
+        "TC-INV-004",
+        "TC-INV-005"
+      ]
+    },
+    {
+      "requirementId": "REQ-004",
+      "name": "Audit evidence logging",
+      "description": "Every routing decision must record vendor status, invoice amount, threshold applied, and final approval path.",
+      "priority": "HIGH",
+      "coveredBy": [
+        "TC-INV-005"
+      ]
+    }
+  ],
+  "testCases": [
+    {
+      "testCaseId": "TC-INV-001",
+      "name": "Preferred vendor invoice below threshold routes to finance validation",
+      "priority": "HIGH",
+      "status": "PASSED",
+      "workflowStep": "Preferred vendor threshold routing"
+    },
+    {
+      "testCaseId": "TC-INV-002",
+      "name": "Preferred vendor invoice requires manager approval",
+      "priority": "CRITICAL",
+      "status": "FAILED",
+      "workflowStep": "Manager approval assignment",
+      "critical": true
+    },
+    {
+      "testCaseId": "TC-INV-003",
+      "name": "Duplicate invoice override routes to manual review",
+      "priority": "CRITICAL",
+      "status": "PASSED",
+      "workflowStep": "Exception screening"
+    },
+    {
+      "testCaseId": "TC-INV-004",
+      "name": "Tax exception override blocks automated fast path",
+      "priority": "HIGH",
+      "status": "PASSED",
+      "workflowStep": "Exception screening"
+    },
+    {
+      "testCaseId": "TC-INV-005",
+      "name": "Boundary invoice captures manager approval and audit evidence",
+      "priority": "CRITICAL",
+      "status": "PASSED",
+      "workflowStep": "Approval path audit logging"
+    }
+  ],
+  "traceability": [
+    {
+      "requirementId": "REQ-002",
+      "testCaseId": "TC-INV-002",
+      "executionLogId": "RC-AF-INV-2026-001-TC-INV-002-log",
+      "failureDiagnosisId": "failure-TC-INV-002",
+      "evidenceReportId": "EVR-AF-INV-2026-001"
+    }
+  ]
+}

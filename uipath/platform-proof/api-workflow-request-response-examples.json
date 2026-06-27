@@ -1,0 +1,61 @@
+{
+  "prototypeStatus": "deterministic-local",
+  "uipathConnectionStatus": "proof-layer-ready-real-connection-pending",
+  "examples": {
+    "getReleaseCheck": {
+      "request": {
+        "releaseCheckId": "RC-AF-INV-2026-001"
+      },
+      "response": {
+        "releaseCheckId": "RC-AF-INV-2026-001",
+        "releaseCandidateId": "REL-INV-DISPATCHER-2026-06-28",
+        "runName": "Preferred vendor threshold routing release check",
+        "riskScore": 94,
+        "riskLevel": "CRITICAL",
+        "finalStatus": "BLOCKED",
+        "failedTestId": "TC-INV-002",
+        "evidenceReportId": "EVR-AF-INV-2026-001"
+      }
+    },
+    "submitTestResults": {
+      "request": {
+        "releaseCheckId": "RC-AF-INV-2026-001",
+        "executionResults": [
+          {
+            "testCaseId": "TC-INV-002",
+            "status": "FAILED",
+            "critical": true,
+            "actualResult": "The invoice skipped manager approval and entered finance validation.",
+            "evidenceRefs": [
+              "local-run/INV-88450-routing.json",
+              "local-run/INV-88450-queue-snapshot.txt"
+            ]
+          }
+        ]
+      },
+      "response": {
+        "accepted": true,
+        "releaseCheckId": "RC-AF-INV-2026-001",
+        "resultCount": 5,
+        "passedCount": 4,
+        "failedCount": 1,
+        "criticalFailureCount": 1,
+        "finalStatus": "BLOCKED"
+      }
+    },
+    "generateEvidenceReport": {
+      "request": {
+        "releaseCheckId": "RC-AF-INV-2026-001",
+        "includeMarkdown": true
+      },
+      "response": {
+        "releaseCheckId": "RC-AF-INV-2026-001",
+        "evidenceReportId": "EVR-AF-INV-2026-001",
+        "title": "Invoice approval automation release evidence",
+        "summary": "The release check found a critical high-value approval bypass in the invoice approval automation.",
+        "finalStatus": "BLOCKED",
+        "generatedAt": "2026-06-26T09:00:00+05:30"
+      }
+    }
+  }
+}

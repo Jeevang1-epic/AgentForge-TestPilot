@@ -1,0 +1,72 @@
+{
+  "project": "AgentForge TestPilot",
+  "prototypeStatus": "deterministic-local",
+  "uipathConnectionStatus": "proof-layer-ready-real-connection-pending",
+  "releaseCheckId": "RC-AF-INV-2026-001",
+  "releaseCandidateId": "REL-INV-DISPATCHER-2026-06-28",
+  "scenario": "Invoice approval automation release governance",
+  "automationName": "Invoice Approval Dispatcher",
+  "environment": "Pre-production",
+  "changeRequest": {
+    "id": "CR-INV-2026-014",
+    "title": "Update invoice approval threshold routing for preferred vendors",
+    "summary": "Preferred vendor invoices under USD 25,000 should route to finance validation while high-value invoices, duplicate matches, tax exceptions, and audit logging controls remain protected."
+  },
+  "risk": {
+    "score": 94,
+    "level": "CRITICAL",
+    "businessImpact": "A high-value invoice can proceed without manager approval, weakening payment governance and creating audit exposure for finance operations."
+  },
+  "testCoverage": {
+    "totalTests": 5,
+    "passedTests": 4,
+    "failedTests": 1,
+    "criticalFailures": 1,
+    "coverageAreas": [
+      "Preferred vendor fast path",
+      "High-value approval control",
+      "Duplicate exception override",
+      "Tax exception override",
+      "Boundary threshold and audit evidence"
+    ]
+  },
+  "criticalFailure": {
+    "testCaseId": "TC-INV-002",
+    "title": "Preferred vendor invoice requires manager approval",
+    "invoiceId": "INV-88450",
+    "invoiceAmount": "USD 48,750",
+    "expectedRoute": "Manager approval",
+    "actualRoute": "Finance validation",
+    "summary": "High-value invoice bypasses manager approval after threshold-routing change.",
+    "rootCause": "The preferred vendor fast-path branch evaluates before the high-value approval guard, so invoices above the USD 25,000 threshold can route directly to finance validation."
+  },
+  "humanReview": {
+    "decision": "BLOCKED",
+    "reviewQueue": "Finance automation release governance",
+    "riskAccepted": false,
+    "requiredApprovers": [
+      "Accounts Payable Governance",
+      "Finance Operations Lead",
+      "Automation QA Owner"
+    ],
+    "releaseConditions": [
+      "Fix the high-value approval guard in threshold routing.",
+      "Rerun the full invoice approval release-gate suite.",
+      "Attach passing execution evidence to the release record.",
+      "Obtain finance governance approval before production deployment."
+    ]
+  },
+  "evidenceReport": {
+    "id": "EVR-AF-INV-2026-001",
+    "title": "Invoice approval automation release evidence",
+    "summary": "The release check found a critical high-value approval bypass in the invoice approval automation. The release is blocked until remediation, rerun evidence, and governance review are complete.",
+    "generatedAt": "2026-06-26T09:00:00+05:30"
+  },
+  "uipathMappings": {
+    "testManager": "Requirements, release-gate test cases, execution logs, and traceability.",
+    "testCloud": "Future execution source for release-gate result evidence.",
+    "apiWorkflows": "Release-check retrieval, test-result submission, and evidence-report generation contracts.",
+    "actionCenter": "Human review gate for blocked or review-required releases.",
+    "codedAgents": "Requirement analyst, risk mapper, test planner, execution analyst, failure investigator, release gate, and evidence reporter responsibilities."
+  }
+}
