@@ -6,7 +6,10 @@ const requiredFiles = [
   "README.md",
   "docs/demo-script.md",
   "docs/submission-checklist.md",
+  "docs/uipath-platform-proof.md",
   "uipath/README.md",
+  "uipath/platform-proof/agentforge-testpilot-evidence-bundle.json",
+  "uipath/platform-proof/integration-readiness-checklist.md",
 ];
 
 const requiredScreenshots = [
@@ -16,6 +19,7 @@ const requiredScreenshots = [
   "public/screenshots/release-check-viewport.png",
   "public/screenshots/release-critical-failure.png",
   "public/screenshots/evidence-report-preview.png",
+  "public/screenshots/uipath-integration-readiness.png",
   "public/screenshots/uipath-proof-layer.png",
 ];
 
@@ -49,6 +53,9 @@ const forbiddenPublicTerms = [
 
 const riskyClaimTerms = [
   "real UiPath API connected",
+  "real UiPath API execution is already connected",
+  "live UiPath connector enabled",
+  "live UiPath tenant connected",
   "production ready",
   "air-gapped",
   "cryptographic sign-off",
