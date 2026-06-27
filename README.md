@@ -32,6 +32,7 @@ AgentForge TestPilot provides a deterministic release-check dashboard for an inv
 - Human review queue.
 - Evidence report preview.
 - UiPath proof mapping.
+- UiPath integration readiness proof.
 
 ## Live Demo Flow
 
@@ -69,6 +70,13 @@ The proof layer maps the local deterministic dashboard to future UiPath surfaces
 
 Current state is contract-only and sample-data-only. Real UiPath connection is pending future secure configuration and implementation.
 
+Winning Sprint 1 adds a stronger platform proof layer:
+
+- `src/lib/uipath-adapters/`: typed local adapters for Test Manager, API Workflows, Action Center, and platform evidence mapping.
+- `uipath/platform-proof/`: static evidence bundle, mapping examples, and integration readiness checklist.
+- `docs/uipath-platform-proof.md`: detailed UiPath platform proof explanation.
+- `/release-check`: visible `UiPath Integration Readiness` panel.
+
 ## Local Run Commands
 
 ```bash
@@ -96,8 +104,10 @@ The application does not connect to real UiPath APIs yet. The `uipath/` folder c
 - `src/lib/agents`: deterministic local agent functions.
 - `src/lib/orchestrator`: release check pipeline.
 - `src/lib/data`: local invoice approval demo data.
+- `src/lib/uipath-adapters`: typed UiPath-shaped proof adapters with no live API calls.
 - `src/components/dashboard`: dashboard presentation components.
 - `uipath`: UiPath proof layer contracts and sample artifacts.
+- `uipath/platform-proof`: submission-safe platform evidence bundle.
 - `docs`: architecture notes, demo script, recording plan, judge walkthrough, and submission checklist.
 
 ## Limitations

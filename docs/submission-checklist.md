@@ -29,7 +29,10 @@
 - Release gate returns a blocked or review-required outcome.
 - Evidence report includes traceability, risk, coverage, failed test details, root cause, release decision, human decision, UiPath mapping, and generated timestamp.
 - UiPath proof contracts are present under `uipath/`.
+- UiPath adapter proof layer is present under `src/lib/uipath-adapters/`.
+- UiPath platform proof bundle is present under `uipath/platform-proof/`.
 - UiPath mapping panel is visible on `/release-check`.
+- UiPath Integration Readiness panel is visible on `/release-check`.
 
 ## Demo Requirements
 
@@ -61,6 +64,7 @@
 - `docs/demo-script.md` supports a live walkthrough.
 - `docs/demo-recording-plan.md` supports a 5-minute recording.
 - `docs/judge-walkthrough.md` explains problem, solution, architecture, UiPath mapping, demo flow, limitations, and future integration path.
+- `docs/uipath-platform-proof.md` explains Test Manager, Test Cloud, API Workflow, Action Center, and Coded Agent mappings.
 - `public/screenshots/` includes reference images for review and submission packaging.
 - Public docs stay professional and do not include local development artifacts.
 
