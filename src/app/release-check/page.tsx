@@ -7,6 +7,7 @@ import { HumanReviewPanel } from "@/components/dashboard/HumanReviewPanel";
 import { RequirementAnalysisPanel } from "@/components/dashboard/RequirementAnalysisPanel";
 import { RiskScoreCard } from "@/components/dashboard/RiskScoreCard";
 import { TestPlanTable } from "@/components/dashboard/TestPlanTable";
+import { UiPathIntegrationReadinessPanel } from "@/components/dashboard/UiPathIntegrationReadinessPanel";
 import { UiPathMappingPanel } from "@/components/dashboard/UiPathMappingPanel";
 import { MotionReveal } from "@/components/ui/MotionReveal";
 import { PremiumCard } from "@/components/ui/PremiumCard";
@@ -323,6 +324,10 @@ ${releaseCheck.failureDiagnosis.rootCause}`}</code>
             <EvidenceReportView report={releaseCheck.evidenceReport} />
           </MotionReveal>
         </section>
+
+        <MotionReveal className="mt-8" y={24}>
+          <UiPathIntegrationReadinessPanel releaseCheck={releaseCheck} />
+        </MotionReveal>
 
         <MotionReveal className="mt-8" y={24}>
           <UiPathMappingPanel />
