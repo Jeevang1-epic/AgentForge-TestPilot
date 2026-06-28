@@ -101,6 +101,12 @@ Future ecosystem direction may include:
 
 These are roadmap directions, not current implementation claims. AgentForge QA is not currently integrated with AgentForge TestPilot, and AgentForge TestPilot does not currently include a desktop app, VS Code extension, or real UiPath API connection.
 
+## Coding Agent Bonus Evidence
+
+OpenAI Codex was used as the coding agent for implementation support. It contributed to scaffolding, iteration, verification, QA automation, and proof-layer hardening.
+
+Human review controlled architecture, scope, acceptance, and final validation. Evidence is available in `docs/coding-agent-bonus.md`, commit history, screenshot assets, QA scripts, and validation scripts. No raw prompt logs or private local artifacts are included.
+
 ## Local Run Commands
 
 ```bash
