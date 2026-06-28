@@ -7,7 +7,8 @@
     "build": "next build",
     "lint": "eslint",
     "screenshots": "node scripts/capture-screenshots.mjs",
-    "repo:audit": "node scripts/repo-audit.mjs"
+    "repo:audit": "node scripts/repo-audit.mjs",
+    "proof:validate": "node scripts/validate-platform-proof.mjs"
   },
   "dependencies": {
     "motion": "^12.42.0",
