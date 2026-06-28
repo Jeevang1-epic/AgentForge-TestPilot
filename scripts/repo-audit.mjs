@@ -4,6 +4,7 @@ import path from "node:path";
 
 const requiredFiles = [
   "README.md",
+  "docs/coding-agent-bonus.md",
   "docs/demo-script.md",
   "docs/submission-checklist.md",
   "docs/uipath-platform-proof.md",
@@ -33,6 +34,13 @@ const forbiddenFileNames = [
   "codex-build-log.md",
 ];
 
+const forbiddenPromptLogFilePatterns = [
+  /prompt[-_ ]?log/i,
+  /chat[-_ ]?history/i,
+  /raw[-_ ]?prompt/i,
+  /assistant[-_ ]?transcript/i,
+];
+
 const publicScanRoots = ["README.md", "docs", "src", "uipath"];
 const textExtensions = new Set([
   ".css",
@@ -44,12 +52,18 @@ const textExtensions = new Set([
 ]);
 
 const forbiddenPublicTerms = [
-  "Codex",
   "Stitch",
   "vibe coding",
-  "prompt logs",
   "local assistant artifacts",
 ];
+
+const allowedCodingAgentEvidenceFiles = new Set([
+  "README.md",
+  "docs/coding-agent-bonus.md",
+  "docs/submission-checklist.md",
+]);
+
+const codingAgentEvidenceTerms = ["OpenAI Codex", "prompt logs"];
 
 const riskyClaimTerms = [
   "real UiPath API connected",
@@ -111,6 +125,12 @@ function assertTrackedArtifacts(files) {
     if (file === "docs/codex-build-log.md") {
       addFailure(`Forbidden tracked artifact file: ${file}`);
     }
+
+    for (const pattern of forbiddenPromptLogFilePatterns) {
+      if (pattern.test(file)) {
+        addFailure(`Forbidden raw prompt log style file: ${file}`);
+      }
+    }
   }
 }
 
@@ -119,6 +139,23 @@ function assertRequiredFiles() {
     if (!existsSync(file)) {
       addFailure(`Missing required file: ${file}`);
     }
+  }
+}
+
+function assertCodingAgentEvidence() {
+  const readme = readFileSync("README.md", "utf8");
+  const bonusDoc = readFileSync("docs/coding-agent-bonus.md", "utf8");
+
+  if (!readme.includes("Coding Agent Bonus Evidence")) {
+    addFailure("README.md must mention Coding Agent Bonus Evidence.");
+  }
+
+  if (!bonusDoc.includes("OpenAI Codex")) {
+    addFailure("docs/coding-agent-bonus.md must document the coding agent tool.");
+  }
+
+  if (!bonusDoc.includes("No raw prompt logs are included.")) {
+    addFailure("docs/coding-agent-bonus.md must state raw prompt logs are not included.");
   }
 }
 
@@ -145,6 +182,14 @@ function assertTextSafety(files) {
       }
     }
 
+    if (!allowedCodingAgentEvidenceFiles.has(file)) {
+      for (const term of codingAgentEvidenceTerms) {
+        if (content.toLowerCase().includes(term.toLowerCase())) {
+          addFailure(`Coding-agent evidence wording outside allowed files in ${file}: ${term}`);
+        }
+      }
+    }
+
     for (const term of riskyClaimTerms) {
       if (content.toLowerCase().includes(term.toLowerCase())) {
         addFailure(`Risky integration claim in ${file}: ${term}`);
@@ -162,6 +207,7 @@ const files = trackedFiles();
 assertTrackedArtifacts(files);
 assertRequiredFiles();
 assertRequiredScreenshots();
+assertCodingAgentEvidence();
 assertTextSafety(files);
 
 if (failures.length > 0) {
