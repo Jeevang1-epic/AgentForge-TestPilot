@@ -75,6 +75,7 @@ Winning Sprint 1 adds a stronger platform proof layer:
 - `src/lib/uipath-adapters/`: typed local adapters for Test Manager, API Workflows, Action Center, and platform evidence mapping.
 - `uipath/platform-proof/`: static evidence bundle, mapping examples, and integration readiness checklist.
 - `docs/uipath-platform-proof.md`: detailed UiPath platform proof explanation.
+- `docs/winning-judge-brief.md`: short judge-facing project brief and demo narrative.
 - `/release-check`: visible `UiPath Integration Readiness` panel.
 
 ## Local Run Commands

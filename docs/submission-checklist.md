@@ -65,6 +65,7 @@
 - `docs/demo-recording-plan.md` supports a 5-minute recording.
 - `docs/judge-walkthrough.md` explains problem, solution, architecture, UiPath mapping, demo flow, limitations, and future integration path.
 - `docs/uipath-platform-proof.md` explains Test Manager, Test Cloud, API Workflow, Action Center, and Coded Agent mappings.
+- `docs/winning-judge-brief.md` provides a concise judge-facing pitch, demo path, platform mapping, and limitations.
 - `public/screenshots/` includes reference images for review and submission packaging.
 - Public docs stay professional and do not include local development artifacts.
 
