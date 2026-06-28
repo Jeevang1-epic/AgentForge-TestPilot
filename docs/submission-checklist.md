@@ -72,6 +72,14 @@
 - `public/screenshots/` includes reference images for review and submission packaging.
 - Public docs stay professional and do not include local development artifacts.
 
+## Coding Agent Bonus Evidence
+
+- Coding agent tool is documented.
+- Coding agent contribution is documented.
+- `docs/coding-agent-bonus.md` is present.
+- No raw prompt logs are included.
+- No private local artifacts are included.
+
 ## Verification
 
 - `npm install` completed.
