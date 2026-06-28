@@ -15,6 +15,12 @@ UiPath AgentHack Track 3: UiPath Test Cloud.
 - Main demo route: `/release-check`
 - Screenshot assets: `public/screenshots/`
 
+## Why This Project Exists
+
+AI coding agents and enterprise automations are moving faster than traditional review processes. Teams need evidence before they trust, push, demo, or release work that can affect financial controls and operational workflows.
+
+AgentForge TestPilot demonstrates how release confidence can become visible, reviewable, and auditable. It turns a workflow change into requirements, risk, tests, execution evidence, failure diagnosis, human review, and a release decision that a team can inspect before moving forward.
+
 ## Problem
 
 Invoice approval automations carry financial control risk. A small threshold-routing change can let high-value invoices skip manager approval, send exception cases to the wrong queue, or leave audit evidence incomplete. Teams need a clear release decision that connects the requirement, risk, test evidence, failure cause, and human review path.
@@ -77,6 +83,23 @@ Winning Sprint 1 adds a stronger platform proof layer:
 - `docs/uipath-platform-proof.md`: detailed UiPath platform proof explanation.
 - `docs/winning-judge-brief.md`: short judge-facing project brief and demo narrative.
 - `/release-check`: visible `UiPath Integration Readiness` panel.
+
+## AgentForge Ecosystem Connection
+
+AgentForge TestPilot is part of a broader evidence-first software trust direction. The shared idea is simple: teams should see concrete evidence before trusting fast-moving automated work.
+
+AgentForge QA is the related local-first CLI direction for verifying AI coding-agent work before developers trust, push, demo, or ship it. It focuses on local checks, evidence collection, risk scoring, Markdown/JSON reporting, and safe command execution concepts.
+
+AgentForge TestPilot is the related but separate enterprise release-governance dashboard direction for UiPath-style automation releases. It focuses on requirements, risk, release-gate tests, execution evidence, failure diagnosis, human review, and UiPath proof mapping.
+
+Future ecosystem direction may include:
+
+- CLI checks feeding release evidence.
+- Desktop review experience.
+- IDE or VS Code extension workflow.
+- UiPath-connected enterprise release gates.
+
+These are roadmap directions, not current implementation claims. AgentForge QA is not currently integrated with AgentForge TestPilot, and AgentForge TestPilot does not currently include a desktop app, VS Code extension, or real UiPath API connection.
 
 ## Local Run Commands
 
