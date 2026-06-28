@@ -4,6 +4,10 @@
 
 AgentForge TestPilot is a deterministic release gate for UiPath invoice approval automations. It turns a risky workflow change into requirements, risk scoring, release-gate tests, execution evidence, failure diagnosis, human review, and an evidence report. In the demo, a preferred vendor threshold-routing change is blocked because a high-value invoice bypasses manager approval.
 
+## AgentForge Ecosystem Note
+
+AgentForge TestPilot connects to the broader AgentForge direction: evidence-first developer trust, AI-assisted delivery verification, and enterprise release governance. AgentForge QA represents the related local-first CLI path for checking AI coding-agent work, while TestPilot represents the release-governance dashboard path for UiPath-style automation releases. Future direction may include CLI evidence feeding release reviews, desktop review flows, IDE or VS Code extension workflows, and UiPath-connected release gates. This is roadmap direction only; there is no current integration claim.
+
 ## Enterprise Problem
 
 Invoice approval automation is a financial control surface. If a threshold or exception-routing change is wrong, high-value invoices can skip approval, exception cases can enter the wrong queue, and audit evidence can become incomplete. Enterprise teams need a clear way to connect business requirements, test results, failure diagnosis, and human approval before a workflow release moves forward.

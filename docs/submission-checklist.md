@@ -9,6 +9,8 @@
 - Demo scenario is visible in the first dashboard viewport.
 - No fake claim is made that real UiPath APIs are connected.
 - UiPath proof layer is clearly described as contract-only and sample-data-only.
+- AgentForge ecosystem direction is described as roadmap, not current integration.
+- No claim is made that AgentForge QA is currently integrated with TestPilot.
 
 ## Application
 
@@ -66,6 +68,7 @@
 - `docs/judge-walkthrough.md` explains problem, solution, architecture, UiPath mapping, demo flow, limitations, and future integration path.
 - `docs/uipath-platform-proof.md` explains Test Manager, Test Cloud, API Workflow, Action Center, and Coded Agent mappings.
 - `docs/winning-judge-brief.md` provides a concise judge-facing pitch, demo path, platform mapping, and limitations.
+- Public docs position AgentForge TestPilot as a related but separate release-governance dashboard within the broader AgentForge evidence-first direction.
 - `public/screenshots/` includes reference images for review and submission packaging.
 - Public docs stay professional and do not include local development artifacts.
 
